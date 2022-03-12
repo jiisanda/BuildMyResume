@@ -1,6 +1,7 @@
 # CUSTOM .gitignore
 
 env.py
+resume_venv
 
 # CUSTOM ---END---
 
