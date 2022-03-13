@@ -1,0 +1,31 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block content %}
+<!--CSS Style-->
+<link rel="stylesheet" href="{% static 'users/users.css' %}">
+
+<br>
+{% if registered %}
+    <div class="card" id="after-registration">
+        <h1>Thanks for Signing UP !!!</h1>
+        <p>Login Once to chat <a href="{% url 'users:user_login' %}">Here</a></p>
+    </div>
+{% else %}
+<div class="card text-center" id="card-register" >
+    <br>
+    <h3>Register here!</h3>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <br>
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <button type="submit" class="btn btn-primary mb-3" id="btn-login"><span>SignUP! </span></button>
+    </form>
+    <br>
+    <p>Already have an account <a href="{% url 'users:user_login' %}">LogIN</a> instead.</p>
+</div>
+{% endif %}
+<br><br>
+
+{% endblock content %}
