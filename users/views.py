@@ -10,7 +10,7 @@ from django.shortcuts import redirect, render
 
 from django.urls import reverse, reverse_lazy
 
-from users.forms import UserForm, ProfileForm, EditProfileForm, EditUserForm
+from users.forms import UserForm,  EditUserForm
 from users.models import Profile
 
 # Create your views here.
@@ -46,28 +46,18 @@ def registrationView(request):
     if request.method == "POST":
         # creating a form instance and populate it with data from the request: 
         user_form = UserForm(request.POST)
-        profile_form = ProfileForm(request.POST)
         # checking the form is valid
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-
-            profile = profile_form.save(commit=False)
-            profile.user = user
-
-            if 'profile_picture' in request.FILES:
-                profile.profile_picture = request.FILES['profile_picture']
-            profile.save()
             registered = True
         else:
-            print(user_form.errors, profile_form.errors)
+            print(user_form.errors)
     else:
         user_form = UserForm()
-        profile_form = ProfileForm()
     return render(request, 'users/registration.html',
                             {'user_form':user_form,
-                            'profile_form':profile_form,
                             'registered':registered})
 
 
@@ -76,21 +66,17 @@ def edit_profile(request):
     Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         user_form = EditUserForm(request.POST, instance=request.user)
-        profile_form = EditProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid():
             user_form.save()
-            profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='users:login')
             # return redirect(to='chats_app:home')
     else:
         user_form = EditUserForm(instance=request.user)
-        profile_form = EditProfileForm(instance=request.user.profile)
     
     return render(request, 'users/edit_profile.html', {
         'user_form':user_form,
-        'profile_form':profile_form,
     })
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
