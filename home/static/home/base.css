@@ -1,0 +1,365 @@
+/* Style-NAVBAR */
+#nav-title {
+    color:black;
+    font-weight: 500;
+    padding-left: 2rem;
+}
+
+#nav-title:hover {
+    color: #1C0C58
+}
+
+#navbar-links {
+    color:black;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+}
+
+#navbar-links:hover {
+    text-decoration: underline;
+    color:orangered;
+}
+
+/* EDIT-BTN */
+.btn-hover {
+    float: right;
+    width: 60px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:hover {
+    background-position: 100% 0;
+    transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+
+.btn-hover.color-9 {
+    background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+    box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+/* Sytle-BODY */
+.main-content {
+    padding-left: 25%;
+    padding-right: 25%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.main-content .row .intro {
+    font-family: 'Courier New', Courier, monospace;
+    font-size:xx-large;
+    font-weight: 700;
+}
+
+.main-content .row .bio {
+    font-family: 'Hubballi', cursive;
+    font-size: large;
+    line-height: 90%;
+}
+
+.main-content .row .btn-download {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 700;
+    background-color: #0C1E7F;
+    color: white;
+    border: None;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-right: 1rem;
+}
+
+.main-content .row .btn-download:hover {
+    background-color: #D9D7F1;
+    color: #072227;
+    border-radius:10px;
+    padding: 5px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.main-content .row .btn-contact {
+    background-color: white;
+    border: 2px solid #1C0C58;
+    border-radius: 0px;
+    color: #203239;
+    padding: 3px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.main-content .row .btn-contact:hover {
+    background-color: #151D3B;
+    border: none;
+    color: #DADBBD;
+}
+
+.main-content .row .col-4 .github-linkedin {
+    display: flex;
+    justify-content: center;  
+}
+
+.main-content .row .col-4 .github-linkedin .linkedin {
+    padding-right: 2rem;
+}
+
+.main-content .row .col-4 .github-linkedin .github {
+    padding-left: 2rem;
+}
+
+#user-img {
+    padding-top: 1rem;
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+}
+
+/* SKILLS - COURSEWORK */
+.main-content .skill-coursework h4 {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+    font-size: large;
+}
+
+.main-content .skill-coursework .row .skill > div{
+    flex:1;
+    border-right: 1px solid grey;
+    
+}
+
+.main-content .skill-coursework .skill .sk {
+    padding: 2px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.main-content .skill-coursework .skill img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.main-content .skill-coursework .course .card {
+    width: 250px;
+    height: 250px;
+    border:none;
+}
+
+.main-content .skill-coursework .course .card .custom li::marker {
+    font-family: 'Raleway', sans-serif;
+    color: #2C272E;
+	font-size: 150%;
+}
+
+/* CERTIFICATES */
+.crd-certificates .crd-certi-body {
+    padding-bottom: 1px;
+}
+.crd-certificates .crd-certi-body h4 {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+    font-size: large;
+}
+
+.crd-certificates .crd-certi-body .row {
+    line-height: 1rem;
+}
+
+.crd-certificates .crd-certi-body .row img {
+    width:50px;
+    height: 50px;
+}
+
+.crd-certificates .crd-certi-body .row .about-certi {
+    padding-left: 2rem;
+}
+
+#date-id {
+    color:grey;
+}
+
+.crd-certificates .crd-certi-body .row .about-certi button {
+    float: right;
+    background-color: white;
+    border: 1px solid grey;
+    margin-top: 4px;
+    padding: 2px;
+    padding-left:1rem;
+    padding-right: 1rem;
+    border-radius: 2rem;
+}
+
+.crd-certificates .crd-certi-body .row .about-certi button:hover {
+    border: 2px solid black;
+    background-color: #CCD1EF;
+}
+
+.crd-certificates .crd-certi-body p {
+    align-self: center;
+    margin-bottom: 1px;
+}
+
+.crd-certificates .crd-certi-body p a {
+    font-weight: 800;
+    font-family: 'Work Sans', sans-serif;
+    text-decoration: none;
+    color:#0E185F;
+}
+
+.crd-certificates .crd-certi-body p a:hover {
+    color: #5463FF;
+}
+
+/* PROJECTS */
+.main-content .projects {
+    margin-top: 1rem;
+}
+
+.main-content .projects .card-body h4 {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+    font-size: large;
+}
+
+.main-content .projects .card-body h4 strong small a {
+    font-family: 'Work Sans', sans-serif;
+    float: right;
+    font-size: medium;
+    color: #524A4E;
+    text-decoration: none;
+}
+
+.main-content .projects .card-body h4 strong small a:hover {
+    color:#FF5C8D;
+}
+
+.main-content .projects .card-body .project-details {
+    margin-top: 1rem;
+}
+
+.main-content .projects .card-body .project-details h5 {
+    font-size: large;
+}
+
+#see-project {
+    float: right;
+    background-color: white;
+    border: 1px solid grey;
+    margin-top: 4px;
+    padding: 2px;
+    padding-left:1rem;
+    padding-right: 1rem;
+    border-radius: 2rem;
+}
+
+#see-project:hover {
+    border: 2px solid black;
+    background-color: #CCD1EF;
+}
+
+
+/* RECENT POSTS */
+.main-content .recent-posts {
+    margin-top: 1rem;
+    background-color: #F8F8F1;
+    border-radius: 1rem;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+}
+
+.main-content .recent-posts .row .col .card:hover {
+    color: white;
+    background-color: #19282F;
+}
+
+.main-content .recent-posts h4 {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+    font-size: large;
+}
+
+.main-content .recent-posts h4 strong small a {
+    font-family: 'Work Sans', sans-serif;
+    float: right;
+    font-size: medium;
+    color: #524A4E;
+    text-decoration: none;
+}
+
+.main-content .recent-posts a {
+    text-decoration: none;
+    color: black;
+}
+
+.main-content .recent-posts a:hover {
+    color: white;
+}
+
+.main-content .recent-posts h4 strong small a:hover {
+    color:#FF5C8D;
+}
+
+#post-title {
+    font-family: 'Source Code Pro', monospace;
+}
+
+#dated {
+    font-family: 'Work Sans', sans-serif;
+    font-size: small;
+}
+
+#post-text {
+    font-family: 'Syne Mono', monospace;
+    font-size: medium;
+    color: grey;
+}
+
+/* FOOTER */
+.footerCol {
+    padding: 50px 0;
+    text-align: center;
+  }
+  .socialCol li {
+    display: inline-block;
+  }
+  .socialCol li + li {
+    padding-left: 35px;
+  }
+  .socialCol img {
+    max-width: 30px;
+    max-height: 30px;
+    -o-object-fit: contain;
+    object-fit: contain;
+  }
+  .copyrightCol {
+      padding: 20px 0 0;
+    font-size: 14px;
+  }
+  .copyrightCol p {
+      margin: 0;
+  }
