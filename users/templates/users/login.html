@@ -1,4 +1,4 @@
-{% extends 'users\base.html' %}
+{% extends 'home\base.html' %}
 {% load static %}
 {% block content %}
 
@@ -7,7 +7,7 @@
 
 <br>
 <div class="card text-center" id="card-login">
-    <img src="" alt="" width="40%" height="40%" class="d-inline-block align-text-top">
+    <!-- <img src="" alt="" width="40%" height="40%" class="d-inline-block align-text-top"> -->
     <h2>Login</h2>
     <br>
     <form action="{% url 'users:user_login' %}" method="POST">
