@@ -3,6 +3,7 @@
 
 
 {% block content %}
+{% if user.is_authenticated %}
     <button class="btn-hover color-9" id="floater">EDIT</button>
     <div class="main-content">
         <!--INTRO-->
@@ -14,10 +15,10 @@
                 <button type="button" class="btn-contact">Contact</button>
             </div>
             <div class="col-4">
-                <img src="media/profile-pic.jpg" id="user-img">
+                <img src="{% static 'media/profile-pic.jpg' %}" id="user-img">
                 <div class="github-linkedin">
-                    <img class="linkedin" src="media/linkedin.svg" alt="linkedin_link">
-                    <img class="github" src="media/github.svg" alt="github_link">
+                    <img class="linkedin" src="{% static 'media/linkedin.svg' %}" alt="linkedin_link">
+                    <img class="github" src="{% static 'media/github.svg' %}" alt="github_link">
                 </div>
             </div>
         </div>
@@ -28,11 +29,11 @@
                 <div class="col-7 skill">
                     <h4>Coding Skills</h4>
                     <div class="row row-cols-3 justify-content-md-center">
-                        <div class="col sk"><img src="media/sample.jpg" alt="skill1"></div>
-                        <div class="col sk"><img src="media/sample.jpg" alt="skill1"></div>
-                        <div class="col sk"><img src="media/sample.jpg" alt="skill1"></div>
-                        <div class="col sk"><img src="media/sample.jpg" alt="skill1"></div>
-                        <div class="col sk"><img src="media/sample.jpg" alt="skill1"></div>
+                        <div class="col sk"><img src="{% static 'media/sample.jpg' %}" alt="skill1"></div>
+                        <div class="col sk"><img src="{% static 'media/sample.jpg' %}" alt="skill1"></div>
+                        <div class="col sk"><img src="{% static 'media/sample.jpg' %}" alt="skill1"></div>
+                        <div class="col sk"><img src="{% static 'media/sample.jpg' %}" alt="skill1"></div>
+                        <div class="col sk"><img src="{% static 'media/sample.jpg' %}" alt="skill1"></div>
                     </div>
                 </div>
                 <div class="col-5 course">
@@ -56,7 +57,7 @@
                 <h4>Certificates</h4>
                 <br>
                 <div class="row">
-                    <div class="col-1"><img src="media/sample.jpg"></div>
+                    <div class="col-1"><img src="{% static 'media/sample.jpg' %}"></div>
                     <div class="col-11 about-certi">
                         <h6>Program Name</h6>
                         <small>Platform Name</small><br>
@@ -67,7 +68,7 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-1"><img src="media/sample.jpg"></div>
+                    <div class="col-1"><img src="{% static 'media/sample.jpg' %}"></div>
                     <div class="col-11 about-certi">
                         <h6>Program Name</h6>
                         <small>Platform Name</small><br>
@@ -78,7 +79,7 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-1"><img src="media/sample.jpg"></div>
+                    <div class="col-1"><img src="{% static 'media/sample.jpg' %}"></div>
                     <div class="col-11 about-certi">
                         <h6>Program Name</h6>
                         <small>Platform Name</small><br>
@@ -147,5 +148,10 @@
             </div>
         </div>
     </div>
+{% else %}
+<section class="user-logout-view">
+    <p>Welcome to Build My Resume</p>
+</section>
+{% endif %}
 {% endblock content %}
 
