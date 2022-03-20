@@ -1,3 +1,8 @@
+body {
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,172,255,1) 67%, rgba(0,60,168,1) 100%);
+}
+
 /* Style-NAVBAR */
 #nav-title {
     color:black;
@@ -61,8 +66,11 @@
 
 /* Sytle-BODY */
 .main-content {
-    padding-left: 25%;
-    padding-right: 25%;
+    background-color: white;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    padding-left: 18%;
+    padding-right: 18%;
     padding-top: 5%;
     padding-bottom: 5%;
 }

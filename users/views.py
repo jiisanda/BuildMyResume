@@ -17,7 +17,7 @@ from users.models import Profile
 @login_required
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('users:login'))
+    return HttpResponseRedirect(reverse('home:index'))
 
 
 def user_login_view(request):
@@ -28,8 +28,8 @@ def user_login_view(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return HttpResponse("ACCOUNT ACTIVE")
-                # return HttpResponseRedirect(reverse('users:home')) 
+                # return HttpResponse("ACCOUNT ACTIVE")
+                return HttpResponseRedirect(reverse('home:index')) 
             else:
                 return HttpResponse("ACCOUNT NOT ACTIVE")
         else:
