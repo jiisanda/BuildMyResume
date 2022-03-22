@@ -4,7 +4,7 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-    <button class="btn-hover color-9" id="floater">EDIT</button>
+    <a href="{% url 'home:edit-home' %}"><button class="btn-hover color-9" id="floater">EDIT</button></a>
     <div class="main-content">
         <!--INTRO-->
         <div class="row">

@@ -2,6 +2,8 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+from django.utils import timezone
+
 # Create your models here.
 class Role(models.Model):
     role_name = models.CharField(max_length=50, )
@@ -38,7 +40,7 @@ class UserProfile(models.Model):
     facebook_url = models.URLField(max_length=200)
     instagram_url = models.URLField(max_length=200)
     twitter_url = models.URLField(max_length=200)
-    last_modeified = models.DateField(auto_now=True)
+    last_modified = models.DateField(auto_now=True)
 
     def __str__(self):
         return str(self.email)
@@ -56,7 +58,7 @@ class Certificates(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     program_name = models.CharField(max_length=50)
     platform_name = models.CharField(max_length=30)
-    issuerd_date = models.DateField(auto_now=True)
+    issued_date = models.DateField(default=timezone.now)
     certificate_id = models.CharField(max_length=200)
     certificate_url = models.URLField(max_length=200)
 
@@ -67,8 +69,8 @@ class Certificates(models.Model):
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project_name = models.CharField(max_length=50)
-    start_duration = models.DateField(auto_now=True)
-    end_duration = models.DateField(auto_now=True)
+    start_duration = models.DateField(default=timezone.now)
+    end_duration = models.DateField(default=timezone.now)
     bio_project = models.TextField(blank=True, null=True)
     project_url = models.URLField(max_length=200)
 

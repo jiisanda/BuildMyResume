@@ -352,22 +352,28 @@ body {
     padding: 50px 0;
     text-align: center;
   }
-  .socialCol li {
+.socialCol li {
     display: inline-block;
-  }
-  .socialCol li + li {
+}
+.socialCol li + li {
     padding-left: 35px;
-  }
-  .socialCol img {
+}
+.socialCol img {
     max-width: 30px;
     max-height: 30px;
     -o-object-fit: contain;
     object-fit: contain;
-  }
-  .copyrightCol {
-      padding: 20px 0 0;
+}
+.copyrightCol {
+    padding: 20px 0 0;
     font-size: 14px;
-  }
-  .copyrightCol p {
-      margin: 0;
-  }
+    color: white;
+}
+
+.copyrightCol a {
+    color: #F7E2E2;
+}
+
+.copyrightCol p {
+    margin: 0;
+}
