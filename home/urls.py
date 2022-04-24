@@ -1,12 +1,13 @@
 from django.urls import path
 
-from . import views
+from .views import index, profileTabView, blogTabView, contactTabView, EditHomePageView
 
 app_name = 'home'
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('my-profile/', views.profileTabView, name='profile'),
-    path('my-blog/', views.blogTabView, name='blog'),
-    path('contact-me/', views.contactTabView, name='contact'),
+    path('', index, name='index'),
+    path('my-profile/', profileTabView, name='profile'),
+    path('my-blog/', blogTabView, name='blog'),
+    path('contact-me/', contactTabView, name='contact'),
+    path('edit-home-page/', EditHomePageView, name="edit_home")
 ]
