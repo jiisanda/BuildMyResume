@@ -4,7 +4,8 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-    <a href="{% url 'home:edit-home' %}"><button class="btn-hover color-9" id="floater">EDIT</button></a>
+    <a href="#"><button class="btn-hover color-9" id="floater">EDIT</button></a>
+    <!--url 'home:edit-home'-->
     <div class="main-content">
         <!--INTRO-->
         <div class="row">
@@ -13,7 +14,7 @@
                 <p class="bio">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, sed, itaque reiciendis quos eligendi ab aut veritatis ad sit placeat inventore voluptates voluptatibus nisi sequi. Ea rem quam excepturi accusamus?</p>
                 <button type="button" class="btn-download">Download Resume</button>
                 <button type="button" class="btn-contact">Contact</button>
-            </div>
+           </div>
             <div class="col-4">
                 <img src="{% static 'media/profile-pic.jpg' %}" id="user-img">
                 <div class="github-linkedin">
@@ -153,5 +154,21 @@
     <p>Welcome to Build My Resume</p>
 </section>
 {% endif %}
+
+<footer>
+    <div class="footerCol">
+      <div class="container">
+        <ul class="socialCol">
+          <li><a href="javascript:void(0)"><img src="{% static 'media/fb.svg' %}" alt="..."></a></li>
+          <li><a href="javascript:void(0)"><img src="{% static 'media/insta.svg' %}" alt="..."></a></li>
+          <li><a href="javascript:void(0)"><img src="{% static 'media/twitter.svg' %}" alt="..."></a></li>
+          <li><a href="javascript:void(0)"><img src="{% static 'media/linkedin.svg' %}" alt="..."></a></li>
+        </ul>
+        <div class="copyrightCol">
+          <p>Copyright ©2022 All rights reserved. Designed by <a href="https://www.linkedin.com/in/harsh-jaiswal-2307/" target="_blank">Harsh Jaiswal</a> Using Django</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 {% endblock content %}
 
