@@ -1,20 +1,24 @@
-from django.shortcuts import redirect, render
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from django.shortcuts import redirect, render
+
 from .forms import ProfileForm, UserProfileForm
+
 
 # Create your views here.
 def index(request):
     return render(request, 'home/home.html')
 
+@login_required
 def profileTabView(request):
     return render(request, 'home/portfolio.html')
 
+@login_required
 def blogTabView(request):
     return render(request, 'home/blog.html')
 
+@login_required
 def contactTabView(request):
     return render(request, 'home/contact.html')
 

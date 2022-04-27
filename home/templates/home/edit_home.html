@@ -1,17 +1,215 @@
 {% extends "home\base.html" %}
-{% load crispy_forms_tags %}
+{% load static %}
+
 {% block content %}
+<link rel="stylesheet" href="{% static 'home/edit_home.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <fieldset class='form-group'>
-        <legend class="border-bottom mb-4">Update Profile</legend>
-        {{ profile_form|crispy }}
-        {{ userprofile_form|crispy }}
-    </fieldset>
-    <div class="form-group">
-        <button class=""btn btn-outline-info" type="submit">Save Updates</button>
+    <!-- <div class="form-group">
+        <button class="btn btn-outline-info save-data-btn" type="submit">Save Updates</button>
+    </div> -->
+    <br><br>
+    <div class="card profile-card">
+        <div class="row">
+            <div class="col-3 heading-1"><strong>Personal Details</strong></div>
+            <div class="col-8">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput id_first_name" placeholder="First Name*" style="width: 100%;">
+                    <label for="{{ id_first_name }}" class="form_label">First Name*</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput id_last_name" placeholder="Last Name*">
+                    <label for="{{ id_last_name }}" class="form_label">Last Name*</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput id_email" placeholder="Last Name*">
+                    <label for="{{ id_email }}" class="form_label">Email*</label>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <br><br>
+    <div class="card profile-card">
+        <div class="row">
+            <div class="col-3 heading-1"><strong>Social Details</strong></div>
+            <div class="col-8">
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" id="floatingInput id_bio" name="bio" placeholder="Bio" style="height: 100px;"></textarea>
+                    <label for="{{ id_bio }}" class="form_label">Bio * </label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="file" class="form-control" id="id_profile_picture">
+                    <!-- <label for="{{ id_profile_picture }}" class="form_label"></label> -->
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="floatingSelect id_role" aria-label="Select Role">
+                        <option selected>Open this select menu</option>
+                        <option value="1">Student</option>
+                        <option value="2">Backend Developer</option>
+                        <option value="3">Frontend Developer</option>
+                        <option value="4">FullStack Developer</option>
+                    </select>
+                    <label for="floatingSelect {{ id_role }}">Select Role *</label>
+                    <small style="float: right;">+ Add Another Role (If the role is not present in the list)</small>
+                </div>
+                <br>
+                <div class="form-floating mb-1">
+                    <textarea class="form-control" id="floatingInput id_coding_lang" name="Coding Lang" placeholder="Coding Lang" style="height: 80px;"></textarea>
+                    <label for="{{ id_coding_lang }}" class="form_label">Languages</label>
+                    <small><em>Enter comma seperated values.</em></small>
+                </div>
+                
+                <br>
+                <div class="form-floating mb-1">
+                    <textarea class="form-control" id="floatingInput id_course_work" name="Coursework" placeholder="Course Work" style="height: 80px;"></textarea>
+                    <label for="{{ id_course_work }}" class="form_label">Course Work</label>
+                    <small><em>Enter comma seperated values.</em></small>
+                </div>
+
+                <label for="basic-url {{ id_github_url }}" class="form-label"></label>
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon3 id_github_url">https://github.com/username/</span>
+                    <input type="text" class="form-control" id="basic-url id_github_url" aria-describedby="basic-addon3">
+                </div>
+                
+                <label for="basic-url {{ id_github_url }}" class="form-label"></label>
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon3 id_linkedin_url">https://linkedin.com/username/</span>
+                    <input type="text" class="form-control" id="basic-url id_linkedin_url" aria-describedby="basic-addon3">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<br>
+<div class="card profile-card">
+    <div class="row">
+        <div class="col-3 heading-1"><strong>Certification(s)</strong></div>
+            <div class="col-8 certificate-form">
+                <div id="form-certi-wrap">
+                    <br>
+                    <form class="form-certifications" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput id_program_name" placeholder="Program Name*" style="width: 100%;">
+                            <label for="{{ id_program_name }}" class="form_label">Program Name*</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="floatingSelect id_platform_name" aria-label="Platform Name">
+                                <option selected>Open this select menu</option>
+                                <option value="1">Udemy</option>
+                                <option value="2">Coursera</option>
+                                <option value="3">Udacity</option>
+                            </select>
+                            <label for="floatingSelect {{ id_role }}">Select Platform *</label>
+                            <small style="float: right;">+ Add Another Platform (If not present in the list)</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date {{ id_issue_date }}" class="col-3 col-form-label">Date of Issue</label>
+                            <div class="input-group date" id="datepicker">
+                                <input type="date" class="form-control" id="date id_issue_date"/>
+                                <span class="input-group-append">
+                                </span>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#datetimepicker1').datetimepicker();
+                                });
+                            </script>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="floatingInput id_certificate_id" placeholder="Certificate ID*" style="width: 100%;">
+                            <label for="{{ id_certificate_id }}" class="form_label">Certificate ID*</label>
+                        </div>
+    
+                        <label for="basic-url {{ id_certificate_url }}" class="form-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon3 id_certificate_url">Add Link of Drive / Site</span>
+                            <input type="text" class="form-control" id="basic-url id_certificate_url" aria-describedby="basic-addon3">
+                        </div>
+                        <button id="delete-certi-btn" type="submit">Delete</button>
+                    </form>
+                </div>
+                <button type="button" id="add-more-certificate" onclick="addCertificateForm();">+ Add Certificate</button><br><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<div class="card profile-card">
+    <div class="row">
+        <div class="col-3 heading-1"><strong>Projects(s)</strong></div>
+            <div class="col-8 project-form">
+                <div id="form-project-wrap">
+                    <br>
+                    <form class="form-project" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput id_project_name" placeholder="Program Name*" style="width: 100%;">
+                            <label for="{{ id_project_name }}" class="form_label">Project Name*</label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date {{ id_start_duration }}" class="col-3 col-form-label">Start Date</label>
+                            <div class="input-group date" id="datepicker {{ id_start_duration }}">
+                                <input type="date" class="form-control" id="date id_start_duration"/>
+                                <span class="input-group-append">
+                                </span>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#datetimepicker1').datetimepicker();
+                                });
+                            </script>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date {{ id_end_duration }}" class="col-3 col-form-label">End Date</label>
+                            <div class="input-group date" id="datepicker {{ id_end_duration }} ">
+                                <input type="date" class="form-control" id="date id_end_duration"/>
+                                <span class="input-group-append">
+                                </span>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#datetimepicker1').datetimepicker();
+                                });
+                            </script>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="floatingInput id_bio_project" name="bio_project" placeholder="About the Project" style="height: 100px;"></textarea>
+                            <label for="{{ id_bio_project }}" class="form_label">About the Project * </label>
+                        </div>
+                        
+                        <label for="basic-url {{ id_project_url }}" class="form-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon3 id_project_url">Link to the Project</span>
+                            <input type="text" class="form-control" id="basic-url id_project_url" aria-describedby="basic-addon3">
+                        </div>
+                        <button id="delete-project-btn" type="submit">Delete</button>
+                    </form>
+                </div>
+                <button type="button" id="add-more-project" onclick="addProjectForm();">+ Add Project</button><br><br>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'home/edit_home.js' %}"></script>
+<br><br>
+
+<footer class="edit_home_footer">
+    <div class="footerCol">
+      <div class="container">
+        <div class="copyrightCol">
+          <p>Copyright ©2022 All rights reserved. Designed by <a href="https://www.linkedin.com/in/harsh-jaiswal-2307/" target="_blank">Harsh Jaiswal</a> Using Django</p>
+        </div>
+      </div>
+    </div>
+</footer>
 
 {% endblock content %} 
