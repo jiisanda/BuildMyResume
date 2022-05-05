@@ -1,41 +1,7 @@
-from django.contrib.auth.models import User
-
 from django import forms
-from .models import UserProfile, Certificates, Project
 
-
-class ProfileForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=60)
-    last_name = forms.CharField(max_length=60)
-    email = forms.EmailField(max_length=100)
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'email']
-
-        widgets = {
-            'first_name':forms.TextInput(attrs={'class':'form-contol', 'placeholder':'First Name*'}),
-            'last_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name*'}),
-            'email':forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Email*'}),
-        }
-
-
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ['bio', 'profile_picture', 'role', 'coding_lang', 'course_work', 
-                'github_url', 'linkedin_url', 'facebook_url', 'instagram_url', 'twitter_url']
-
-        widgets = {
-            'bio':forms.Textarea(attrs={'class':'form-control', 'placeholder':'Bio...', 'rows':4}),
-            'role':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Role...'}),
-            'coding_lang':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Coding Languages'}),
-            'course_work':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Course Work'}),
-            'github_url':forms.URLInput(attrs={'class':'form-control', 'placeholder':'https://github.com/username'}),
-            'linkedin_url':forms.URLInput(attrs={'class':'form-control', 'placeholder':'https://linkedin.com/username'}),
-            'facebook_url':forms.URLInput(attrs={'class':'form-control', 'placeholder':'https://facebook.com/username'}),
-            'instagram_url':forms.URLInput(attrs={'class':'form-control', 'placeholder':'https://instagram.com/username'}),
-            'twitter_url':forms.URLInput(attrs={'class':'form-control', 'placeholder':'https://twitter.com/username'}),
-        }
+from users.models import NewUser
+from .models import Profile, Certificates, Project
 
 class CertificateForm(forms.ModelForm):
     class Meta:
