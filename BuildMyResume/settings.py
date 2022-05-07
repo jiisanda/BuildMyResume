@@ -120,4 +120,3 @@ INTERNAL_IPS = [
 ]
 
 AUTH_USER_MODEL = 'users.NewUser'
-# AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']

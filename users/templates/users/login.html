@@ -1,33 +1,30 @@
-{% extends 'home\base.html' %}
+{% extends "home/base.html" %}
 {% load static %}
+
 {% block content %}
-
-<!--CSS Style-->
-<link rel="stylesheet" href="{% static 'users/users.css' %}">
-
-<br>
-<div class="card text-center" id="card-login">
-    <!-- <img src="" alt="" width="40%" height="40%" class="d-inline-block align-text-top"> -->
-    <h2>Login</h2>
-    <br>
-    <form action="{% url 'users:user_login' %}" method="POST">
+    <link rel="stylesheet" href="{% static 'users/users.css' %}">  
+    <div class="card text-center" id="card-login">
+        <h1>Login</h1>
+        <form method="post">
         {% csrf_token %}
+
         <div class="form-floating">
-            <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Enter Username" required="">
-            <label for="floatingInput username">Username:</label>
+            <input type="email" class="form-control" id="floatingInput" name="username" placeholder="Enter Email" required id="id_username">
+            <label for="floatingInput id_username">Email:</label>
         </div>
         <br>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required="">
-            <label for="floatingPassword password">Password:</label>
+            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required id="id_password">
+            <label for="floatingPassword id_password">Password:</label>
         </div>
         <br>
         <button type="submit" class="btn btn-primary mb-3" id="btn-login"><span>LogIn! </span></button>
-        {% comment %} <input type="submit" id="btn-login" value="LogIn!"> {% endcomment %}
         <br>
         <br>
-            <p>Don't have an account <a href="{% url 'users:register' %}">Sign UP</a> instead.</p>
-        
-    </form>
-</div>
-{% endblock content %}
+            <p>Don't have an account <a href="{% url 'users:signup' %}">Sign Up</a> instead.</p>
+
+        <!-- {{ form.as_p }} -->
+        <button type="submit">Login</button>
+        </form>
+    </div>
+{% endblock content %}  

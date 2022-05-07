@@ -1,31 +1,35 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .models import NewUser
 
-# Register your models here.
 
-class UserAdminConfig(UserAdmin):
-    search_fields = ('email', 'username', )
-    list_filter = ('email', 'username', 'is_active', 'is_staff')
-    ordering = ('-start_date',)
-    list_display = ('id', 'email', 'username', 'is_active', 'is_staff')
-
+class UserAdmin(BaseUserAdmin):
     fieldsets = (
-        (None, {'fields':('email', 'username', )}),
-        ('Permissions', {'fields':('is_staff', 'is_active', )}),
-        # ('Personal', {'fields':()}),
+        (None, {'fields': ('email', 'password', 'username', 'last_login')}),
+        ('Permissions', {'fields': (
+            'is_active', 
+            'is_staff', 
+            'is_superuser',
+            'groups', 
+            'user_permissions',
+        )}),
     )
-
-    # formfield_override = {
-    #     NewUser.about: {'widget':Textarea(attrs={'rows':10, 'cols':40})},
-    # }
-
     add_fieldsets = (
-        (None, {
-            'classes':('wide', ),
-            'fields':('email', 'username', 'password1', 'password2', 'is_active', 'is_staff')}
+        (
+            None,
+            {
+                'classes': ('wide',),
+                'fields': ('email', 'username', 'password1', 'password2')
+            }
         ),
     )
 
-admin.site.register(NewUser, UserAdminConfig)
+    list_display = ('id', 'email', 'username', 'is_staff', 'last_login')
+    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
+    search_fields = ('email', 'username',)
+    ordering = ('email',)
+    filter_horizontal = ('groups', 'user_permissions',)
+
+
+admin.site.register(NewUser, UserAdmin)

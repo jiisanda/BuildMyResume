@@ -1,0 +1,51 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+<!--CSS Style-->
+<link rel="stylesheet" href="{% static 'users/users.css' %}">
+
+<br>
+{% if registered %}
+    <div class="card" id="after-registration">
+        <h1>Thanks for Signing UP !!!</h1>
+        <p>Login Once to Build / Edit Your Resume <a href="{% url 'users:user_login' %}">Here</a></p>
+    </div>
+{% else %}
+    <div class="card text-center" id="card-register" >
+        <br>
+        <h1>Sign up</h1>
+        <br>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" name="email" placeholder="Enter Email" required id="id_email">
+                <label for="floatingInput id_email">Email:</label>
+            </div>
+            <br>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Enter Username" required id="id_username">
+                <label for="floatingInput id_username">Username:</label>
+            </div>
+            <br>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" name="password1" placeholder="Password" required id="id_password1" autocomplete="new-password">
+                <label for="floatingPassword id_password1">Password:</label>
+            </div>
+            <br>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" name="password2" placeholder="Password Confirmation" required id="id_password2" autocomplete="new-password">
+                <label for="floatingPassword id_password2">Password confirmation:</label>
+                <small>
+                    <span class="helptext">Enter the same password as before, for verification.</span>
+                </small>
+            </div>
+            <br>
+            <!-- {{ form.as_p }} -->
+            <button type="submit" class="btn btn-primary mb-3" id="btn-login"><span>SignUP! </span></button>
+        </form>
+        <br>
+        <p>Already have an account <a href="{% url 'users:login' %}">LogIN</a> instead.</p>
+    </div>
+{% endif %}
+<br><br>
+{% endblock content %}  

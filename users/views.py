@@ -1,85 +1,29 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from django.views.generic.detail import DetailView
 
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import PasswordChangeView
-from django.contrib.messages.views import SuccessMessageMixin
-
-from django.shortcuts import redirect, render
-
-from django.urls import reverse, reverse_lazy
-
-from users.forms import UserForm,  EditUserForm
-from users.models import Profile
-
-# Create your views here.
-@login_required
-def user_logout(request):
-    logout(request)
-    return HttpResponseRedirect(reverse('home:index'))
+from .forms import SignUpForm
 
 
-def user_login_view(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user:
-            if user.is_active:
-                login(request, user)
-                # return HttpResponse("ACCOUNT ACTIVE")
-                return HttpResponseRedirect(reverse('home:index')) 
-            else:
-                return HttpResponse("ACCOUNT NOT ACTIVE")
-        else:
-            print("Someone tried to logon and failed...")
-            print(f"User: {username} and password {password}")
-            return HttpResponse("Invalid login details supplied!")
-    else:
-        return render(request, 'users/login.html', {})
+class UserView(DetailView):
+    template_name = 'home/home.html'
+
+    def get_object(self):
+        return self.request.user
 
 
-def registrationView(request):
-    registered = False
-    # if this is the POST request we need to process the form data
-    if request.method == "POST":
-        # creating a form instance and populate it with data from the request: 
-        user_form = UserForm(request.POST)
-        # checking the form is valid
-        if user_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-            registered = True
-        else:
-            print(user_form.errors)
-    else:
-        user_form = UserForm()
-    return render(request, 'users/registration.html',
-                            {'user_form':user_form,
-                            'registered':registered})
-
-
-@login_required
-def edit_profile(request):
-    Profile.objects.get_or_create(user=request.user)
+def signup(request):
     if request.method == 'POST':
-        user_form = EditUserForm(request.POST, instance=request.user)
-
-        if user_form.is_valid():
-            user_form.save()
-            messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='users:login')
-            # return redirect(to='chats_app:home')
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(request, email=user.email, password=raw_password)
+            if user is not None:
+                login(request, user)
+            else:
+                print("user is not authenticated")
+            return redirect('users:profile')
     else:
-        user_form = EditUserForm(instance=request.user)
-    
-    return render(request, 'users/edit_profile.html', {
-        'user_form':user_form,
-    })
-
-class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
-    template_name = 'users/change_password.html'
-    success_message = 'Successfully Changed Your Password'
-    success_url = reverse_lazy('users:login')
+        form = SignUpForm()
+    return render(request, 'users/signup.html', {'form': form})
