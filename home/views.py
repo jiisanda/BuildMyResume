@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import redirect, render
 
-# from .forms import ProfileForm, UserProfileForm
+from .forms import HomeProfileForm, UserProfileForm
 
 
 # Create your views here.
@@ -11,39 +11,39 @@ def index(request):
     return render(request, 'home/home.html')
 
 @login_required
-def profileTabView(request):
+def profile_tab_view(request):
     return render(request, 'home/portfolio.html')
 
 @login_required
-def blogTabView(request):
+def blog_tab_view(request):
     return render(request, 'home/blog.html')
 
 @login_required
-def contactTabView(request):
+def contact_tab_view(request):
     return render(request, 'home/contact.html')
 
 
-# @login_required
-# def EditHomePageView(request):
-#     if request.method == 'POST':
-#         # below two lines will bring all the save data of the user...
-#         profile_form = ProfileForm(request.POST, instance=request.user)
-#         userprofile_form = UserProfileForm(request.POST, 
-#                                             request.FILES, 
-#                                             instance=request.user.profile)
+@login_required
+def edit_home_page_view(request):
+    if request.method == 'POST':
+        # below two lines will bring all the save data of the user...
+        home_profile_form = HomeProfileForm(request.POST, request.FILES, instance=request.user)
+        user_profile_form = UserProfileForm(request.POST, 
+                                            request.FILES, 
+                                            instance=request.user.profile)
 
-#         if profile_form.is_valid() and userprofile_form.is_valid():
-#             profile_form.save()
-#             userprofile_form.save()
-#             messages.success(request, f'Your accout has been updated')
-#             return redirect('home:index')
+        if home_profile_form.is_valid() and user_profile_form.is_valid():
+            home_profile_form.save()
+            user_profile_form.save()
+            messages.success(request, f'Your accout has been updated')
+            return redirect('home:index')
         
-#     else:
-#         profile_form = ProfileForm(instance=request.user)
-#         userprofile_form = UserProfileForm(instance=request.user.profile)
-#     context = {
-#         'profile_form':profile_form,
-#         'userprofile_form':userprofile_form,
-#     }
+    else:
+        home_profile_form = HomeProfileForm(instance=request.user)
+        user_profile_form = UserProfileForm(instance=request.user.profile)
+    context = {
+        'home_profile_form':home_profile_form,
+        'user_profile_form':user_profile_form,
+    }
 
-#     return render(request, 'home/edit_home.html', context)
+    return render(request, 'home/edit_home.html', context)
