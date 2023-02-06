@@ -47,6 +47,11 @@ body {
     transition: all .4s ease-in-out;
 }
 
+.btn-hover a {
+    color: white;
+    text-decoration: none;
+}
+
 .btn-hover:hover {
     background-position: 100% 0;
     transition: all .4s ease-in-out;
