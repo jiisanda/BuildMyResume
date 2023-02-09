@@ -5,7 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: repeating-linear-gradient(white, white 24.9%, #203239 75.1%, #203239 100%);
+    /* background: repeating-linear-gradient(white, white 24.9%, #203239 75.1%, #203239 100%); */
 }
 
 .container {

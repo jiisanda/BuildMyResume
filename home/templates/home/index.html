@@ -200,19 +200,15 @@
         <script src="" async defer></script>
     </body>
 
-    <footer>
-        <div class="footerCol">
-          <div class="container">
-            <ul class="socialCol">
-              <li><a href="javascript:void(0)"><img src="media/fb.svg" alt="..."></a></li>
-              <li><a href="javascript:void(0)"><img src="media/insta.svg" alt="..."></a></li>
-              <li><a href="javascript:void(0)"><img src="media/twitter.svg" alt="..."></a></li>
-              <li><a href="javascript:void(0)"><img src="media/linkedin.svg" alt="..."></a></li>
-            </ul>
-            <div class="copyrightCol">
-              <p>Copyright ©2022 All rights reserved. Designed by <a href="https://www.linkedin.com/in/harsh-jaiswal-2307/" target="_blank">Harsh Jaiswal</a> Using Django</p>
-            </div>
-          </div>
+    <div id="footer">
+        <ul class="socialCol">
+            <li><a href="javascript:void(0)"><img src="{% static 'media/fb.svg' %}" alt="..."></a></li>
+            <li><a href="javascript:void(0)"><img src="{% static 'media/insta.svg' %}" alt="..."></a></li>
+            <li><a href="javascript:void(0)"><img src="{% static 'media/twitter.svg' %}" alt="..."></a></li>
+            <li><a href="javascript:void(0)"><img src="{% static 'media/linkedin.svg' %}" alt="..."></a></li>
+        </ul>
+        <div class="copyrightCol">
+              <p>Copyright ©2023 All rights reserved. Designed by <a href="https://www.linkedin.com/in/harsh-jaiswal-2307/" target="_blank">Harsh Jaiswal</a> Using Django</p>
         </div>
-      </footer>
+    </div>
 </html>

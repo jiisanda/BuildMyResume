@@ -1,6 +1,6 @@
 body {
     background: rgb(255,255,255);
-    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,172,255,1) 67%, rgba(0,60,168,1) 100%);
+    /* background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,172,255,1) 67%, rgba(0,60,168,1) 100%); */
 }
 
 /* Style-NAVBAR */
@@ -353,11 +353,15 @@ body {
 }
 
 /* FOOTER */
-.footerCol {
-    padding: 50px 0;
+#footer {
+    display: table;
     text-align: center;
-  }
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .socialCol li {
+    margin-top: 80px;
     display: inline-block;
 }
 .socialCol li + li {
@@ -372,11 +376,11 @@ body {
 .copyrightCol {
     padding: 20px 0 0;
     font-size: 14px;
-    color: white;
+    color: #20262E;
 }
 
 .copyrightCol a {
-    color: #F7E2E2;
+    color: #00337C;
 }
 
 .copyrightCol p {

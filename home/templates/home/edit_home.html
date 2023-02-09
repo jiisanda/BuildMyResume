@@ -202,14 +202,16 @@
 <script type="text/javascript" src="{% static 'home/edit_home.js' %}"></script>
 <br><br>
 
-<footer class="edit_home_footer">
-    <div class="footerCol">
-      <div class="container">
-        <div class="copyrightCol">
-          <p>Copyright ©2022 All rights reserved. Designed by <a href="https://www.linkedin.com/in/harsh-jaiswal-2307/" target="_blank">Harsh Jaiswal</a> Using Django</p>
-        </div>
-      </div>
+<div id="footer">
+    <ul class="socialCol">
+        <li><a href="javascript:void(0)"><img src="{% static 'media/fb.svg' %}" alt="..."></a></li>
+        <li><a href="javascript:void(0)"><img src="{% static 'media/insta.svg' %}" alt="..."></a></li>
+        <li><a href="javascript:void(0)"><img src="{% static 'media/twitter.svg' %}" alt="..."></a></li>
+        <li><a href="javascript:void(0)"><img src="{% static 'media/linkedin.svg' %}" alt="..."></a></li>
+    </ul>
+    <div class="copyrightCol">
+          <p>Copyright ©2023 All rights reserved. Designed by <a href="https://www.linkedin.com/in/harsh-jaiswal-2307/" target="_blank">Harsh Jaiswal</a> Using Django</p>
     </div>
-</footer>
+</div>
 
 {% endblock content %} 
