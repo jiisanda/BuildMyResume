@@ -2,49 +2,54 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'home/edit_home.css' %}">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<head>
+    <link rel="stylesheet" href="{% static 'home/edit_home.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
 
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <!-- <div class="form-group">
+    <div class="form-group">
         <button class="btn btn-outline-info save-data-btn" type="submit">Save Updates</button>
-    </div> -->
+    </div>
     <br><br>
+    <!-- FORM 1 -->
     <div class="card profile-card">
         <div class="row">
             <div class="col-3 heading-1"><strong>Personal Details</strong></div>
             <div class="col-8">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput id_first_name" placeholder="First Name*" style="width: 100%;">
-                    <label for="{{ id_first_name }}" class="form_label">First Name*</label>
+                    <input id="floatingInput firstname" type="text" name="firstname" value="{{ requested_user_profile.firstname }}" class="form-control" placeholder="First Name*" style="width: 100%;">
+                    <label for="firstname" class="form_label">First Name*</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput id_last_name" placeholder="Last Name*">
-                    <label for="{{ id_last_name }}" class="form_label">Last Name*</label>
+                    <input id="floatingInput lastname" type="text" name="lastnmame" value="{{ requested_user_profile.lastname }}" class="form-control" placeholder="Last Name*">
+                    <label for="lastname" class="form_label">Last Name*</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput id_email" placeholder="Last Name*">
-                    <label for="{{ id_email }}" class="form_label">Email*</label>
+                    <input id="floatingInput username" type="text" name="username" value="{{ requested_user.username }}" class="form-control" placeholder="Username*">
+                    <label for="username" class="form_label">Username*</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="floatingInput phonenumber" type="phonenumber" name="phonenumber" value="{{ requested_user_profile.phonenumber }}" class="form-control" placeholder="Mobile No.*">
+                    <label for="phonenumber" class="form_label">Mobile No*</label>
                 </div>
             </div>
         </div>
     </div>
-</form>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
+    <!-- FORM 2 -->
     <br><br>
     <div class="card profile-card">
         <div class="row">
             <div class="col-3 heading-1"><strong>Social Details</strong></div>
             <div class="col-8">
                 <div class="form-floating mb-3">
-                    <textarea class="form-control" id="floatingInput id_bio" name="bio" placeholder="Bio" style="height: 100px;"></textarea>
-                    <label for="{{ id_bio }}" class="form_label">Bio * </label>
+                    <textarea id="floatingInput bio" type="text" name="bio" value="{{ requested_user_profile.bio }}" class="form-control" placeholder="Bio" style="height: 100px;">{{ requested_user_profile.bio }}</textarea>
+                    <label for="bio" class="form_label">Bio * </label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="file" class="form-control" id="id_profile_picture">
-                    <!-- <label for="{{ id_profile_picture }}" class="form_label"></label> -->
+                    <input type="file" class="form-control" id="profile_picture">
+                    <label for="profile_picture" class="form_label">Profile Picture</label>
                 </div>
                 <div class="form-floating mb-3">
                     <select class="form-select" id="floatingSelect id_role" aria-label="Select Role">
@@ -61,144 +66,146 @@
                 <div class="form-floating mb-1">
                     <textarea class="form-control" id="floatingInput id_coding_lang" name="Coding Lang" placeholder="Coding Lang" style="height: 80px;"></textarea>
                     <label for="{{ id_coding_lang }}" class="form_label">Languages</label>
-                    <small><em>Enter comma seperated values.</em></small>
+                    <small><em>Enter space seperated values.</em></small>
                 </div>
                 
                 <br>
                 <div class="form-floating mb-1">
                     <textarea class="form-control" id="floatingInput id_course_work" name="Coursework" placeholder="Course Work" style="height: 80px;"></textarea>
                     <label for="{{ id_course_work }}" class="form_label">Course Work</label>
-                    <small><em>Enter comma seperated values.</em></small>
+                    <small><em>Enter space seperated values.</em></small>
                 </div>
 
                 <label for="basic-url {{ id_github_url }}" class="form-label"></label>
                 <div class="input-group">
-                    <span class="input-group-text" id="basic-addon3 id_github_url">https://github.com/username/</span>
+                    <span class="input-group-text" id="basic-addon3 id_github_url">https://github.com/</span>
                     <input type="text" class="form-control" id="basic-url id_github_url" aria-describedby="basic-addon3">
                 </div>
                 
                 <label for="basic-url {{ id_github_url }}" class="form-label"></label>
                 <div class="input-group">
-                    <span class="input-group-text" id="basic-addon3 id_linkedin_url">https://linkedin.com/username/</span>
+                    <span class="input-group-text" id="basic-addon3 id_linkedin_url">https://linkedin.com/</span>
                     <input type="text" class="form-control" id="basic-url id_linkedin_url" aria-describedby="basic-addon3">
                 </div>
             </div>
         </div>
     </div>
+    <br>
+    <!-- FORM 3 -->
+    <div class="card profile-card">
+        <div class="row">
+            <div class="col-3 heading-1"><strong>Certification(s)</strong></div>
+                <div class="col-8 certificate-form">
+                    <div id="form-certi-wrap">
+                        <br>
+                        <form class="form-certifications" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput id_program_name" placeholder="Program Name*" style="width: 100%;">
+                                <label for="{{ id_program_name }}" class="form_label">Program Name*</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="floatingSelect id_platform_name" aria-label="Platform Name">
+                                    <option selected>Open this select menu</option>
+                                    <option value="1">Udemy</option>
+                                    <option value="2">Coursera</option>
+                                    <option value="3">Udacity</option>
+                                </select>
+                                <label for="floatingSelect {{ id_role }}">Select Platform *</label>
+                                <small style="float: right;">+ Add Another Platform (If not present in the list)</small>
+                            </div>
+                            <div class="mb-3">
+                                <label for="date {{ id_issue_date }}" class="col-3 col-form-label">Date of Issue</label>
+                                <div class="input-group date" id="datepicker">
+                                    <input type="date" class="form-control" id="date id_issue_date"/>
+                                    <span class="input-group-append">
+                                    </span>
+                                </div>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#datetimepicker1').datetimepicker();
+                                    });
+                                </script>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingInput id_certificate_id" placeholder="Certificate ID*" style="width: 100%;">
+                                <label for="{{ id_certificate_id }}" class="form_label">Certificate ID*</label>
+                            </div>
+        
+                            <label for="basic-url {{ id_certificate_url }}" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon3 id_certificate_url">Add Link of Drive / Site</span>
+                                <input type="text" class="form-control" id="basic-url id_certificate_url" aria-describedby="basic-addon3">
+                            </div>
+                            <button id="delete-certi-btn" type="submit">Delete</button>
+                        </form>
+                    </div>
+                    <button type="button" id="add-more-certificate" onclick="addCertificateForm();">+ Add Certificate</button><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <!-- FORM 4 -->
+    <div class="card profile-card">
+        <div class="row">
+            <div class="col-3 heading-1"><strong>Projects(s)</strong></div>
+                <div class="col-8 project-form">
+                    <div id="form-project-wrap">
+                        <br>
+                        <form class="form-project" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput id_project_name" placeholder="Program Name*" style="width: 100%;">
+                                <label for="{{ id_project_name }}" class="form_label">Project Name*</label>
+                            </div>
+                            <div class="mb-3">
+                                <label for="date {{ id_start_duration }}" class="col-3 col-form-label">Start Date</label>
+                                <div class="input-group date" id="datepicker {{ id_start_duration }}">
+                                    <input type="date" class="form-control" id="date id_start_duration"/>
+                                    <span class="input-group-append">
+                                    </span>
+                                </div>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#datetimepicker1').datetimepicker();
+                                    });
+                                </script>
+                            </div>
+                            <div class="mb-3">
+                                <label for="date {{ id_end_duration }}" class="col-3 col-form-label">End Date</label>
+                                <div class="input-group date" id="datepicker {{ id_end_duration }} ">
+                                    <input type="date" class="form-control" id="date id_end_duration"/>
+                                    <span class="input-group-append">
+                                    </span>
+                                </div>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#datetimepicker1').datetimepicker();
+                                    });
+                                </script>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="floatingInput id_bio_project" name="bio_project" placeholder="About the Project" style="height: 100px;"></textarea>
+                                <label for="{{ id_bio_project }}" class="form_label">About the Project * </label>
+                            </div>
+                            
+                            <label for="basic-url {{ id_project_url }}" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon3 id_project_url">Link to the Project</span>
+                                <input type="text" class="form-control" id="basic-url id_project_url" aria-describedby="basic-addon3">
+                            </div>
+                            <button id="delete-project-btn" type="submit">Delete</button>
+                        </form>
+                    </div>
+                    <button type="button" id="add-more-project" onclick="addProjectForm();">+ Add Project</button><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
-<br>
-<div class="card profile-card">
-    <div class="row">
-        <div class="col-3 heading-1"><strong>Certification(s)</strong></div>
-            <div class="col-8 certificate-form">
-                <div id="form-certi-wrap">
-                    <br>
-                    <form class="form-certifications" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput id_program_name" placeholder="Program Name*" style="width: 100%;">
-                            <label for="{{ id_program_name }}" class="form_label">Program Name*</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="floatingSelect id_platform_name" aria-label="Platform Name">
-                                <option selected>Open this select menu</option>
-                                <option value="1">Udemy</option>
-                                <option value="2">Coursera</option>
-                                <option value="3">Udacity</option>
-                            </select>
-                            <label for="floatingSelect {{ id_role }}">Select Platform *</label>
-                            <small style="float: right;">+ Add Another Platform (If not present in the list)</small>
-                        </div>
-                        <div class="mb-3">
-                            <label for="date {{ id_issue_date }}" class="col-3 col-form-label">Date of Issue</label>
-                            <div class="input-group date" id="datepicker">
-                                <input type="date" class="form-control" id="date id_issue_date"/>
-                                <span class="input-group-append">
-                                </span>
-                            </div>
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('#datetimepicker1').datetimepicker();
-                                });
-                            </script>
-                        </div>
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingInput id_certificate_id" placeholder="Certificate ID*" style="width: 100%;">
-                            <label for="{{ id_certificate_id }}" class="form_label">Certificate ID*</label>
-                        </div>
-    
-                        <label for="basic-url {{ id_certificate_url }}" class="form-label"></label>
-                        <div class="input-group">
-                            <span class="input-group-text" id="basic-addon3 id_certificate_url">Add Link of Drive / Site</span>
-                            <input type="text" class="form-control" id="basic-url id_certificate_url" aria-describedby="basic-addon3">
-                        </div>
-                        <button id="delete-certi-btn" type="submit">Delete</button>
-                    </form>
-                </div>
-                <button type="button" id="add-more-certificate" onclick="addCertificateForm();">+ Add Certificate</button><br><br>
-            </div>
-        </div>
-    </div>
-</div>
-
-<br>
-<div class="card profile-card">
-    <div class="row">
-        <div class="col-3 heading-1"><strong>Projects(s)</strong></div>
-            <div class="col-8 project-form">
-                <div id="form-project-wrap">
-                    <br>
-                    <form class="form-project" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput id_project_name" placeholder="Program Name*" style="width: 100%;">
-                            <label for="{{ id_project_name }}" class="form_label">Project Name*</label>
-                        </div>
-                        <div class="mb-3">
-                            <label for="date {{ id_start_duration }}" class="col-3 col-form-label">Start Date</label>
-                            <div class="input-group date" id="datepicker {{ id_start_duration }}">
-                                <input type="date" class="form-control" id="date id_start_duration"/>
-                                <span class="input-group-append">
-                                </span>
-                            </div>
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('#datetimepicker1').datetimepicker();
-                                });
-                            </script>
-                        </div>
-                        <div class="mb-3">
-                            <label for="date {{ id_end_duration }}" class="col-3 col-form-label">End Date</label>
-                            <div class="input-group date" id="datepicker {{ id_end_duration }} ">
-                                <input type="date" class="form-control" id="date id_end_duration"/>
-                                <span class="input-group-append">
-                                </span>
-                            </div>
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('#datetimepicker1').datetimepicker();
-                                });
-                            </script>
-                        </div>
-
-                        <div class="form-floating mb-3">
-                            <textarea class="form-control" id="floatingInput id_bio_project" name="bio_project" placeholder="About the Project" style="height: 100px;"></textarea>
-                            <label for="{{ id_bio_project }}" class="form_label">About the Project * </label>
-                        </div>
-                        
-                        <label for="basic-url {{ id_project_url }}" class="form-label"></label>
-                        <div class="input-group">
-                            <span class="input-group-text" id="basic-addon3 id_project_url">Link to the Project</span>
-                            <input type="text" class="form-control" id="basic-url id_project_url" aria-describedby="basic-addon3">
-                        </div>
-                        <button id="delete-project-btn" type="submit">Delete</button>
-                    </form>
-                </div>
-                <button type="button" id="add-more-project" onclick="addProjectForm();">+ Add Project</button><br><br>
-            </div>
-        </div>
-    </div>
-</div>
 <script type="text/javascript" src="{% static 'home/edit_home.js' %}"></script>
 <br><br>
 
