@@ -12,10 +12,6 @@ class Profile(models.Model):
     firstname = models.CharField(max_length=60, default="")
     lastname = models.CharField(max_length=60, default="")
 
-    country = models.CharField(max_length=60, default="")
-    state = models.CharField(max_length=60, default="")
-    city = models.CharField(max_length=60, default="")
-
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profile_pics',blank=True, default='profile_pics/default_profile.png')
     role = models.CharField(max_length=50, default="")
