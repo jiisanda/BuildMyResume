@@ -16,6 +16,9 @@ class Profile(models.Model):
     profile_picture = models.ImageField(upload_to='profile_pics',blank=True, default='profile_pics/default_profile.png')
     role = models.CharField(max_length=50, default="")
     phonenumber = models.CharField(max_length=11, default="")
+    
+    skills = models.TextField(blank=False, default='')
+    coursework = models.TextField(blank=False, default='')
 
     last_modified = models.DateField(auto_now=True)
 
@@ -64,43 +67,6 @@ def create_profile(sender, instance, created, *args, **kwargs):
     Education.objects.create(user=instance)
 post_save.connect(create_profile, sender=NewUser)
 
-
-class Skill(models.Model):
-    user = models.ForeignKey(NewUser, on_delete=models.CASCADE)
-    coding_lang = models.CharField(max_length=20, default="")
-    coursework = models.CharField(max_length=20, default="")
-
-    def __str__(self):
-        return str(self.user.username)
-
-def create_profile(sender, instance, created, *args, **kwargs):
-    if not created:
-        return
-    Skill.objects.create(user=instance)
-post_save.connect(create_profile, sender=NewUser)
-
-
-class CodingLang(models.Model):
-    coding_lang = models.CharField(max_length=20, )
-
-    def __str__(self):
-        return str(self.coding_lang)
-
-
-class CourseWork(models.Model):
-    coursework = models.CharField(max_length=30)
-
-    def __str__(self):
-        return str(self.coursework)
-
-
-class PlatformName(models.Model):
-    paltform_name = models.CharField(max_length=30)
-    platform_url = models.URLField(max_length=200)
-    platform_logo = models.ImageField(upload_to='platform_logo', default='home/default-platform.png')
-
-    def __str__(self):
-        return str(self.paltform_name)
 
 class Certificates(models.Model):
     user = models.ForeignKey(NewUser, on_delete=models.CASCADE)

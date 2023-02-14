@@ -52,15 +52,8 @@
                     <label for="profile_picture" class="form_label">Profile Picture</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <select class="form-select" id="floatingSelect id_role" aria-label="Select Role">
-                        <option selected>Open this select menu</option>
-                        <option value="1">Student</option>
-                        <option value="2">Backend Developer</option>
-                        <option value="3">Frontend Developer</option>
-                        <option value="4">FullStack Developer</option>
-                    </select>
-                    <label for="floatingSelect {{ id_role }}">Select Role *</label>
-                    <small style="float: right;">+ Add Another Role (If the role is not present in the list)</small>
+                    <input id="floatingInput role" type="role" name="role", value="{{ requested_user_profile.role }}" class="form-control" placeholder="Role*">
+                    <label for="role" class="form_label">Role*</label>
                 </div>
                 <br>
                 <div class="form-floating mb-1">
