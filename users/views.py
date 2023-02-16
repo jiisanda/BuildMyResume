@@ -1,3 +1,10 @@
+"""
+users/views.py
+
+:contains:
+```UserView```
+```signup```
+"""
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.views.generic.detail import DetailView
@@ -6,13 +13,34 @@ from .forms import SignUpForm
 
 
 class UserView(DetailView):
+    """
+    **Context:**
+        
+    **Template:**
+    
+    :redirect-template:`home/home.html`.
+    """
     template_name = 'home/home.html'
 
-    def get_object(self):
+    def get_object(self, querset=None):
+        if querset is None:
+            querset = self.get_queryset()
         return self.request.user
 
-
 def signup(request):
+    """
+    Sign Up View
+    On-Success: redirect(users:profile)
+    
+    **Context:**
+    
+    **Forms:**
+        ```SignUpForm```
+    
+    **Template:**
+    
+    :template:`users/signup.html`
+    """
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():

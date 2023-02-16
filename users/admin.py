@@ -1,3 +1,6 @@
+"""
+users/admin.py
+"""
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
@@ -5,6 +8,9 @@ from .models import NewUser
 
 
 class UserAdmin(BaseUserAdmin):
+    """
+    UserAdmin - BaseUserAdmin class 
+    """
     fieldsets = (
         (None, {'fields': ('email', 'password', 'username', 'last_login')}),
         ('Permissions', {'fields': (
