@@ -1,3 +1,9 @@
+"""
+home/urls.py
+
+URLs for app_name: home
+"""
+
 from django.urls import path
 
 from .views import index, profile_tab_view, blog_tab_view, contact_tab_view, edit_home_page_view
