@@ -3,6 +3,7 @@
 env.py
 resume_venv
 migrations
+.vscode
 
 # CUSTOM ---END---
 
