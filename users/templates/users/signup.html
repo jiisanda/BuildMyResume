@@ -1,8 +1,18 @@
-{% extends 'home/base.html' %}
 {% load static %}
+{% load socialaccount %}
 {% block content %}
 <!--CSS Style-->
 <link rel="stylesheet" href="{% static 'users/users.css' %}">
+
+{% if messages %}
+    <div class="messages">
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tag }} message-text" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
 
 <br>
 {% if registered %}
@@ -11,6 +21,19 @@
         <p>Login Once to Build / Edit Your Resume <a href="{% url 'users:user_login' %}">Here</a></p>
     </div>
 {% else %}
+    <div class="social-buttons">
+        <p class="login-with">
+            Login with
+        </p>
+        <p>
+            <a href="{% provider_login_url 'google' %}">
+                Google
+            </a>
+            <a href="{% provider_login_url 'linkedin' %}" class="linkedin-button">
+                LinkedIn
+            </a>
+        </p>
+    </div>
     <div class="card text-center" id="card-register" >
         <br>
         <h1>Sign up</h1>
@@ -41,10 +64,37 @@
             </div>
             <br>
             <!-- {{ form.as_p }} -->
+
+            <div class="error-bin">
+                {% if form.username.errors %}
+                    <ul class="form-errors">
+                        {% for error in form.username.errors %}
+                            <li class="error-text">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if form.password1.errors %}
+                    <ul class="form-errors">
+                        {% for error in form.password1.errors %}
+                            <li class="error-text">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if form.non_field_errors %}
+                    <ul class="form-errors">
+                        {% for error in form.non_field_errors %}
+                            <li class="error-text">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
             <button type="submit" class="btn btn-primary mb-3" id="btn-login"><span>SignUP! </span></button>
         </form>
         <br>
-        <p>Already have an account <a href="{% url 'users:login' %}">LogIN</a> instead.</p>
+        <p>Already have an account <a href="{% url 'login' %}">LogIN</a> instead.</p>
     </div>
 {% endif %}
 <br><br>
