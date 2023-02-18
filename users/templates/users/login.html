@@ -1,16 +1,39 @@
-{% extends "home/base.html" %}
 {% load static %}
+{% load socialaccount %}
 
 {% block content %}
     <link rel="stylesheet" href="{% static 'users/users.css' %}">  
     <div class="card text-center" id="card-login">
-        <h1>Login</h1>
-        <form method="post">
+        <h1>BuildMyResume | Login</h1>
+        {% if messages %}
+            <div class="messages">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tag }} message-text" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="social-buttons">
+            <p class="login-with">
+                Login with
+            </p>
+            <p>
+                <a href="{% provider_login_url 'google' %}">
+                    Google
+                </a>
+                <a href="{% provider_login_url 'linkedin' %}" class="linkedin-button">
+                    LinkedIn
+                </a>
+            </p>
+        </div>
+
+        <form method="POST" action="{% url 'login' %}">
         {% csrf_token %}
 
         <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" name="username" placeholder="Enter Email" required id="id_username">
-            <label for="floatingInput id_username">Email:</label>
+            <input type="username" class="form-control" id="floatingInput" name="username" placeholder="Enter Email" required id="id_username">
+            <label for="floatingInput id_username">Username:</label>
         </div>
         <br>
         <div class="form-floating">
@@ -18,10 +41,24 @@
             <label for="floatingPassword id_password">Password:</label>
         </div>
         <br>
+        <div>
+            <a href="{% url 'password_reset' %}" class="">Forgot password?</a>
+        </div>
+        
+        <div class="error-box">
+            {% if form.non_field_errors %}
+            <ul class="error-text">
+                {% for error in form.non_field_errors %}
+                    <li class="non-field-errors">{{ errors }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
         <button type="submit" class="btn btn-primary mb-3" id="btn-login"><span>LogIn! </span></button>
         <br>
         <br>
-            <p>Don't have an account <a href="{% url 'users:signup' %}">Sign Up</a> instead.</p>
+            <p>Don't have an account <a href="{% url 'signup' %}">Sign Up</a> instead.</p>
 
         </form>
     </div>

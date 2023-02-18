@@ -4,38 +4,34 @@ users/admin.py
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import NewUser
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .models import User, Profile
 
 
 class UserAdmin(BaseUserAdmin):
     """
     UserAdmin - BaseUserAdmin class 
     """
-    fieldsets = (
-        (None, {'fields': ('email', 'password', 'username', 'last_login')}),
-        ('Permissions', {'fields': (
-            'is_active', 
-            'is_staff', 
-            'is_superuser',
-            'groups', 
-            'user_permissions',
-        )}),
-    )
-    add_fieldsets = (
-        (
-            None,
-            {
-                'classes': ('wide',),
-                'fields': ('email', 'username', 'password1', 'password2')
-            }
-        ),
-    )
-
-    list_display = ('id', 'email', 'username', 'is_staff', 'last_login')
-    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = User
+    
+    list_display = ['email', 'username', 'first_name', 'last_name', 'is_active',]
     search_fields = ('email', 'username',)
     ordering = ('email',)
     filter_horizontal = ('groups', 'user_permissions',)
 
 
-admin.site.register(NewUser, UserAdmin)
+class ProfileAdmin(admin.ModelAdmin):
+    fields = (
+        'user',
+        'phonenumber',
+        'address',
+        'city',
+        'country',
+        'linkedin',
+        'profile_picture',
+    )
+
+admin.site.register(User, UserAdmin)
+admin.site.register(Profile, ProfileAdmin)

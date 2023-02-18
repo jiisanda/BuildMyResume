@@ -6,55 +6,33 @@ users/models.py
 ```NewUSer```
 """
 
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils import timezone
+from django_resized import ResizedImageField
 
 
-class UserManager(BaseUserManager):
-
-  def _create_user(self, email, username, password, is_staff, is_superuser, **extra_fields):
-    if not email:
-        raise ValueError('Users must have an email address')
-    now = timezone.now()
-    email = self.normalize_email(email)
-    user = self.model(
-        email=email,
-        username=username,
-        is_staff=is_staff, 
-        is_active=True,
-        is_superuser=is_superuser, 
-        last_login=now,
-        date_joined=now, 
-        **extra_fields
-    )
-    user.set_password(password)
-    user.save(using=self._db)
-    return user
-
-  def create_user(self, email, username, password, **extra_fields):
-    return self._create_user(email, username, password, False, False, **extra_fields)
-
-  def create_superuser(self, email, username, password, **extra_fields):
-    user=self._create_user(email, username, password, True, True, **extra_fields)
-    return user
-
-
-class NewUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(max_length=254, unique=True)
-    username = models.CharField(max_length=150, unique=True)    
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    last_login = models.DateTimeField(null=True, blank=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
+class User(AbstractUser):
+    created_at = models.DateTimeField(auto_now_add = True, editable=False)
+    updated_at = models.DateTimeField(auto_now = True)
     
+    def __str__(self):
+        return self.email
 
-    USERNAME_FIELD = 'email'
-    EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
 
-    objects = UserManager()
-
-    def get_absolute_url(self):
-        return "/users/%i/" % (self.pk)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    position = models.CharField(max_length=255, blank = True)
+    phonenumber = models.CharField(max_length=255, blank=True)
+    address = models.CharField(max_length=255, blank=True)
+    city = models.CharField(max_length=255, blank=True)
+    country = models.CharField(max_length=255, blank=True)
+    linkedin = models.CharField(max_length=255, )
+    profile_picture = ResizedImageField(
+        size=[300, 300],
+        quality=100,
+        default="profile_pics/default_profile.png",
+        upload_to="profile_pics"
+    )
+    
+    def __str__(self):
+        return self.user.email
