@@ -9,99 +9,214 @@ home/forms.py
 """
 
 from django import forms
+from django.conf import settings
 
-from users.models import NewUser
-from .models import Profile, Certificates, Project
+from users.models import Profile
+from .models import ResumeMetaData, Experience, Certificate, Education, Skill, Language, Coursework
+from .choices import RESUME_CHOICES
 
 
-class HomeProfileForm(forms.ModelForm):
-    """Home Profile Form"""
+class ProfileUpdateFrom(forms.ModelForm):
+    
     class Meta:
         model = Profile
-        fields = ['firstname', 'lastname',
-                'bio', 'profile_picture', 'role', 'phonenumber']
+        fields = ['position', 'address', 'city', 'country', 'phonenumber', 'linkedin', 'bio', 'profile_picture']
+        widgets = {
+            'position': forms.TextInput(attrs={'placeholder':'Job Title/Role'}),
+            'address': forms.TextInput(attrs={'placeholder':'Address'}),
+            'city': forms.TextInput(attrs={'placeholder':'City'}),
+            'country': forms.TextInput(attrs={'placeholder':'Country'}),
+            'phonenumber': forms.TextInput(attrs={'placeholder':'Mobile Number'}),
+            'linkedin': forms.TextInput(attrs={'placeholder':'LinkedIn Profile'}),
+        }
+        labels = {
+            "linkedin": "LinkedIn Profile",
+            "phonenumber": "Mobile Number",
+            "profile_picture": "Profile Picture",
+            "bio": "Bio",
+        }
 
-class UserProfileForm(forms.ModelForm):
-    """User Profile Form"""
+
+class ChooseForm(forms.Form):
+    resume_template = forms.ChoiceField(choices=RESUME_CHOICES, required=True)
+    
     class Meta:
-        model = NewUser
-        fields = ['email', 'username']
+        pass
+
+
+class MyModelFormSet(forms.BaseModelFormSet):
+    def __init__(self, *args, **kwargs):
+        super(MyModelFormSet, self).__init__(**args, **kwargs)
+        for form in self.forms:
+            form.empty_permitted = False
+
+
+class ResumeForm(forms.ModelForm):
+    
+    class Meta:
+        model = ResumeMetaData
+        fields = ['resume_name', 'user', 'id', ]
+        widgets = {
+            'resume_name': forms.TextInput(attrs={'placeholder':'Ex.: Backend Developer'}),
+            'user': forms.HiddenInput(),
+            'id': forms.HiddenInput(),
+        }
+        labels = {
+            'resume_name':'Resume Name',
+        }
+
+
+class ExperienceForm(forms.ModelForm):
+    start_date = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
+                                 widget=forms.DateInput(format='%d/%m/%Y', attrs={
+                                     'class':'date-picker', 'placeholder':'DD/MM/YYYY',
+                                 }))
+    end_date = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
+                                 widget=forms.DateInput(format='%d/%m/%Y', attrs={
+                                     'class':'date-picker', 'placeholder':'DD/MM/YYYY',
+                                 }))
+    
+    class Meta:
+        models = Experience
+        fields = ['position', 'company', 'city', 'start_date', 'end_date', 'description', 'resume', ]
+        widgets = {
+            'description': forms.Textarea(attrs={'cols':50, 'rows':10}),
+            'position': forms.TextInput(attrs={'placeholder':'Ex.: Backend Developer'}),
+            'company': forms.TextInput(attrs={'placeholder':'Company Name'}),
+            'city': forms.TextInput(attrs={'placeholder':'Location'}),
+            'resume':forms.HiddenInput()
+        }
+
+ExperienceFormSet = forms.modelformset_factory(Experience, form=ExperienceForm, formset=MyModelFormSet, extra=1, max_num=5)
+
+
+class EducationForm(forms.ModelForm):
+    start_date = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
+                                 widget=forms.DateInput(format='%d/%m/%Y', attrs={
+                                     'class':'date-picker', 'placeholder':'DD/MM/YYYY',
+                                 }))
+    end_date = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
+                                 widget=forms.DateInput(format='%d/%m/%Y', attrs={
+                                     'class':'date-picker', 'placeholder':'DD/MM/YYYY',
+                                 }))
+    
+    class Meta:
+        model = Education
+        fields = ['school', 'degree', 'major', 'grade', 'start_date', 'end_date', 'resume', ]
+        widgets = {
+            'school': forms.TextInput(attrs={'placeholder':'School Name'}),
+            'degree': forms.TextInput(attrs={'placeholder':'Degree'}),
+            'major': forms.TextInput(attrs={'placeholder':'Major'}),
+            'grade': forms.NumberInput(attrs={'placeholder':'Grade'}),
+            'resume': forms.HiddenInput(),
+        }
+        label = {
+            'grade':'GRADE',
+        }
+
+
+EducationFormSet = forms.modelformset_factory(Education, form=EducationForm, formset=MyModelFormSet, max_num=3)
 
 
 class CertificateForm(forms.ModelForm):
-    """Certificate Form"""
+    date_issued = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
+                                 widget=forms.DateInput(format='%d/%m/%Y', attrs={
+                                     'class':'date-picker', 'placeholder':'DD/MM/YYYY',
+                                 }))
+    
     class Meta:
-        model = Certificates
-        fields = ['program_name', 'platform_name', 'issued_date', 'certificate_id',
-                'certificate_url']
-
+        model = Certificate
+        fields = ['program_name', 'date_issued', 'platform_name', 'certificate_id', 'certificate_url', 'resume', ]
         widgets = {
-            'program_name':forms.TextInput(
-                attrs={
-                    'class':'from-control',
-                    'placeholder':'Program Name*'
-                }
-            ),
-            'platform_name':forms.TextInput(
-                attrs={
-                    'class':'from-control',
-                    'placeholder':'Platform Name*'
-                }
-            ),
-            'issue_date':forms.DateInput(
-                attrs={
-                    'class':'form-control'
-                    }
-            ),
-            'certificate_id':forms.TextInput(
-                attrs={
-                    'class':'form-control',
-                    'placeholder':'Certificate ID'
-                    }
-            ),
-            'certificate_url':forms.URLInput(
-                attrs={
-                    'class':'form-control',
-                    'placeholder':'Link to drive/site'
-                    }
-            ),
+            'program_name': forms.TextInput(attrs={'placeholder':'Program Name'}),
+            'platform_name': forms.TextInput(attrs={'placeholder':'Platform Name'}),
+            'certificate_id': forms.TextInput(attrs={'placeholder':'Certificate ID'}),
+            'certificate_url': forms.URLInput(attrs={'placeholder':'Certificate URL'}),
+            'resume': forms.HiddenInput(),
+        }
+        labels = {
+            'program_name':'Program Name',
         }
 
+CertificateFormSet = forms.modelformset_factory(Certificate, form=CertificateForm, formset=MyModelFormSet, max_num=5)
 
-class ProjectForm(forms.ModelForm):
-    """Project Form"""
+
+class SkillForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(SkillForm, self).clean()
+        skill_name = cleaned_data.get('skill_name')
+        proficiency = cleaned_data.get('proficiency')
+        
+        if skill_name and proficiency not in [1, 2, 3, 4, 5]:
+            raise forms.ValidationError("Please select a proficiency level for skills...")
+        
+        if proficiency in [1, 2, 3, 4, 5] and not skill_name:
+            raise forms.ValidationError("Please enter a skill...")
+    
     class Meta:
-        model = Project
-        fields = ['project_name', 'start_duration', 'end_duration', 'bio_project', 'project_url']
-
+        model = Skill
+        fields = ['skill_name', 'proficiency', 'resume', ]
         widgets = {
-            'project_name':forms.TextInput(
-                attrs={
-                    'class':'form-control',
-                    'placeholder':'Project Title*'
-                    }
-            ),
-            'start_duration':forms.DateInput(
-                attrs={
-                    'class':'form-class'
-                    }
-            ),
-            'end_duration':forms.DateInput(
-                attrs={
-                    'class':'form-control'
-                    }
-            ),
-            'bio_project':forms.Textarea(
-                attrs={
-                    'class':'form-control',
-                    'placeholder':'About the project',
-                    'rows':4
-                }
-            ),
-            'project_url':forms.URLInput(
-                attrs={
-                    'class':'form-control',
-                    'placeholder':'Link to the Project'
-                }
-            ),
+            'proficiency': forms.Select(attrs={'class':'form-control'}),
+            'skill_name': forms.TextInput(attrs={'placeholder':'Skills Ex.: Python'}),
+            'resume': forms.HiddenInput(),
         }
+        label={
+            'skill_name': 'Skill Name',
+        }
+
+SkillFromSet = forms.modelformset_factory(Skill, form=SkillForm, formset=MyModelFormSet, max_num=5)
+
+
+class LanguageForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(LanguageForm, self).clean()
+        language_name = cleaned_data.get('language_name')
+        proficiency = cleaned_data.get('proficiency')
+        
+        if language_name and proficiency not in [1, 2, 3, 4, 5]:
+            raise forms.ValidationError("Please select a proficiency level for language...")
+        
+        if proficiency in [1, 2, 3, 4, 5] and not language_name:
+            raise forms.ValidationError("Please enter a language...")
+    
+    class Meta:
+        model = Language
+        fields = ['language_name', 'proficiency', 'resume', ]
+        widgets = {
+            'proficiency': forms.Select(attrs={'class':'form-control'}),
+            'language_name': forms.TextInput(attrs={'placeholder':'Language Ex.: Japanese'}),
+            'resume': forms.HiddenInput(),
+        }
+        label={
+            'language_name': 'Language Name',
+        }
+
+LanguageFromSet = forms.modelformset_factory(Language, form=LanguageForm, formset=MyModelFormSet, max_num=5)
+
+
+class CourseworkForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(CourseworkForm, self).clean()
+        coursework_name = cleaned_data.get('coursework_name')
+        proficiency = cleaned_data.get('proficiency')
+        
+        if coursework_name and proficiency not in [1, 2, 3, 4, 5]:
+            raise forms.ValidationError("Please select a proficiency level for coursework...")
+        
+        if proficiency in [1, 2, 3, 4, 5] and not coursework_name:
+            raise forms.ValidationError("Please enter a coursework...")
+    
+    class Meta:
+        model = Coursework
+        fields = ['coursework_name', 'proficiency', 'resume', ]
+        widgets = {
+            'proficiency': forms.Select(attrs={'class':'form-control'}),
+            'coursework_name': forms.TextInput(attrs={'placeholder':'Language Ex.: Database Management'}),
+            'resume': forms.HiddenInput(),
+        }
+        label={
+            'coursework_name': 'Coursework Name',
+        }
+
+CourseworkFromSet = forms.modelformset_factory(Coursework, form=CourseworkForm, formset=MyModelFormSet, max_num=5)
