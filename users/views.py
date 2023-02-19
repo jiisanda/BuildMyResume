@@ -18,7 +18,7 @@ from .tokens import account_activation_token
 def signup(request):
     """
     Sign Up View
-    On-Success: redirect(users:profile)
+    On-Success: redirect(profile)
     
     **Context:**
     
@@ -48,7 +48,7 @@ def signup(request):
             email.send()
             message.success(request, "Verification email sent to {}. Do activate your account".format(user.email))
             
-            return redirect('users:login')
+            return redirect('login')
     else:
         form = CustomUserCreationForm()
     return render(request, 'users/signup.html', {'form': form})
@@ -64,7 +64,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         messages.success(request, "You're now an active subscriber of BuildMyResume! Please login with your valid credentials.")
-        return redirect('users:login')
+        return redirect('login')
     else:
         return HttpResponse('Invalid Link!!!')
         
