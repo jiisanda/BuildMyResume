@@ -1,129 +1,177 @@
-"""
-home/views.py
-Contains: 
-index view, edit_home_page_view, profile_tab_view, blog_tab_view
-"""
+import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
+from django.urls import reverse
 
-from django.shortcuts import redirect, render
+from formtools.wizard.views import SessionWizardView
 
-from users.models import NewUser
+from users.forms import CustomUserChangeForm
+from .forms import (ResumeForm, ExperienceForm, CertificateForm, EducationForm, 
+                    SkillForm, LanguageForm, CourseworkForm, ChooseForm, ProfileUpdateFrom)
+from .models import ResumeMetaData, Experience, Education, Certificate, Skill, Language, Coursework
 
-from .forms import HomeProfileForm, UserProfileForm
-from .models import Profile
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
+FORMS = [
+    ('resumes', ResumeForm),
+    ('experience', ExperienceForm),
+    ('certificates', CertificateForm),
+    ('education', EducationForm),
+    ('skills', SkillForm),
+    ('languages', LanguageForm), 
+    ('coursework', CourseworkForm),
+]
 
-# Create your views here.
-@login_required
-def index(request, username: str):
-    """
-    Displaying the home page, login required to view home page of the user.
+FORM_TYPES = ('experience', 'certificates', 'education', 'skills', 'languages', 'coursework', )
 
-    **Context:**
-    ``NewUser``
-        An instance of :NewUser:`users.NewUser`.
-        
-    **Template:**
-    
-    :template:`home/home.html`.
-    """
-    context = {}
-    try:
-        uname = NewUser.objects.get(username=username)
-    except NewUser.DoesNotExist:
-        uname = None
-    context['user'] = uname
-    return render(request, 'home/home.html', context)
-
-@login_required
-def profile_tab_view(request):
-    """
-    Profile tab of the user, login required.
-    
-    **Context:**
-    
-    **Template:**
-    
-    :template:`home/protfolio.html`.
-    """
-    return render(request, 'home/portfolio.html')
-
-@login_required
-def blog_tab_view(request):
-    """
-    Blog Tab, login is required.
-    
-    **Context:**
-    
-    **Template:**
-    
-    :template:`home/blog.html`.
-    """
-    return render(request, 'home/blog.html')
-
-@login_required
-def contact_tab_view(request):
-    """
-    Contact form, login is required.
-    
-    **Context:**
-    
-    **Template:**
-    
-    :template:`home/contact.html`.
-    """
-    return render(request, 'home/contact.html')
+TEMPLATES = {
+    'resumes': 'home/resumes.html',
+    'experience': 'home/experience.html',
+    'education': 'home/education.html',
+    'certificates': 'home/certificates.html',
+    'skills': 'home/skills.html',
+    'languages': 'home/languages.html',
+    'coursework': 'home/coursework.html',
+}
 
 
-@login_required
-def edit_home_page_view(request, username: str):
-    """
-    Edit Home Page, login is required.
+@login_required()
+def choose(request, pk):
+    user = request.user
+    profile_picture_url = user.profile.profile_picture.url.strip('/')
+    resume = Resume.objects.get(pk=pk)
+    form = ChooseForm(request.POST)
     
-    **Context:**
-    ``NewUser``
-        An instance of :NewUser:`users.NewUser`.
-    ``Profile``
-        An instance of :Profile:`home:Profile`.
-    
-    **Forms:**
-    ```HomeProfileForm```
-    ```UserProfileForm```
-    
-    **Template:**
-    
-    :template:`home/edit_home.html`
-    """
-    requested_user = NewUser.objects.get(username=username)
-    requested_user_profile = Profile.objects.get(id=requested_user.id)
+    if request.method == 'GET':
+        form = ChooseForm()
+    elif request.method == 'POST' and 'view-resume' in request.POST:
+        if form.is_valid() and form.cleaned_data['resume_template'] == 'default':
+            return render(request, 'home/default.html', {'form': form, 'resume':resume, 'profile_picture_url':profile_picture_url})
+    # elif form.is_valid() and request.method == 'POST' and 'export-resume' in request.POST:
+    #     pass
+    return render(request, 'home/choose.html', {'form':form, 'resume':resume})
+
+
+@login_required()
+def my_resume(request):
+    user = request.user
+    resumes = ResumeMetaData.objects.filter(user=user).order_by('-created_at')
+    return render(request, 'home/my_resumes.html', {'resumes': resumes})
+
+@login_required()
+def templates(request):
+    return render(request, 'home/templates.html')
+
+@login_required()
+def edit_profile(request):
     if request.method == 'POST':
-        # below two lines will bring all the save data of the user...
-        # request_user = get_object_or_404(Profile, id=id)
-        home_profile_form = HomeProfileForm(request.POST,
-                                            request.FILES,
-                                            instance=requested_user
-                                        )
-        user_profile_form = UserProfileForm(request.POST,
-                                            instance=request.user.profile
-                                        )
-
-        if home_profile_form.is_valid() and user_profile_form.is_valid():
-            home_profile_form.save()
-            user_profile_form.save()
-            success_msg = 'Your accout has been updated'
-            messages.success(request, success_msg)
-            return redirect('home:index', username=username)
-
+        user_form = CustomUserChangeForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateFrom(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, "Profile has been saved!")
+            return HttpResponseRedirect(reverse('home:edit-profile'))
     else:
-        home_profile_form = HomeProfileForm(instance=request.user)
-        user_profile_form = UserProfileForm(instance=request.user.profile)
+        user_form = CustomUserChangeForm(instance=request.user)
+        profile_form - ProfileUpdateFrom(instance=request.user.profile)
     context = {
-        'home_profile_form':home_profile_form,
-        'user_profile_form':user_profile_form,
-        'requested_user':requested_user,
-        'requested_user_profile':requested_user_profile,
+        'user_form':user_form,
+        'profile_form':profile_form,
     }
+    return render(request, 'home/profile.html', context)
 
-    return render(request, 'home/edit_home.html', context)
+
+@login_required()
+def delete_my_resume(request, pk):
+    resume = ResumeMetaData.objects.get(pk=pk)
+    resume.delete()
+    messages.success(request, "Resume is successfully deleted!")
+    return HttpResponseRedirect(reverse('home:my-resumes'))
+
+def dict_has_data(input_dict):
+    is_data_present = False
+    for key in input_dict:
+        if input_dict[key]:
+            is_data_present = True
+            break
+    return is_data_present
+
+
+class ResumeBucket(LoginRequiredMixin, SessionWizardView):
+    login_url = '/login/'
+    
+    def get_form_initial(self, step):
+        if 'pk' in self.kwargs:
+            return {}
+        return self.initial_dict.get(step, {})
+    
+    def get_form_instance(self, step):
+        if 'pk' in self.kwargs:
+            pk = self.kwargs['pk']
+            resume = Resume.objects.get(id=pk)
+            if step == 'resumes':
+                return resume
+            if step == 'experience':
+                return resume.experience_set.all()
+            if step == 'education':
+                return resume.education_set.all()
+            if step == 'certificates':
+                return resume.certificates_set.all()
+            if step == 'skills':
+                return resume.skill_set.all()
+            if step == 'languages':
+                return resume.language_set.all()
+            if step == 'coursework':
+                return resume.coursework_set.all()
+        else:
+            if step == 'resumes':
+                return None
+            if step == 'experience':
+                return Experience.objects.none()
+            if step == 'certificates':
+                return Certificate.objects.none()
+            if step == 'education':
+                return Education.objects.none()
+            if step == 'skills':
+                return Skill.objects.none()
+            if step == 'languages':
+                return Language.objects.none()
+            if step == 'coursework':
+                return Coursework.objects.none()
+        return None
+    
+    def get_template_names(self):
+        return [TEMPLATES[self.steps.current]]
+    
+    def done(self, form_list, **kwargs):
+        user = self.request.user
+        resume_form_data = self.get_cleaned_data_for_step('resumes')
+        resume_name = resume_form_data['resume_name']
+        if 'pk' in self.kwargs:
+            pk = self.kwargs['pk']
+        else:
+            pk = None
+        resume, created = ResumeMetaData.objects.update_or_create(id=pk, defaults={'user':user, 'resume_name':resume_name})
+        
+        for form_name in FORM_TYPES:
+            form_data_list = self.get_cleaned_data_for_step(form_name)
+            for form_data in form_data_list:
+                if not dict_has_data(form_data):
+                    continue
+                form_data['resume'] = resume
+                
+                form_instance = self.get_form(step=form_name)
+                obj = form_data.pop('id')
+                if obj:
+                    form_instance.model.objects.filter(id=obj.id).update(**form_data)
+                else:
+                    form_instance.model.objects.create(**form_data)
+        
+        messages.add_message(self.request, messages.SUCCESS, message="Resume Saved!")
+        return HttpResponseRedirect(reverse('home:my-resume'))

@@ -6,14 +6,18 @@ URLs for app_name: home
 
 from django.urls import path
 
-from .views import index, profile_tab_view, blog_tab_view, contact_tab_view, edit_home_page_view
+from . import views
+from users import views as user_views
 
 app_name = 'home'
 
 urlpatterns = [
-    path('<str:username>/', index, name='index'),
-    path('my-profile/', profile_tab_view, name='profile'),
-    path('my-blog/', blog_tab_view, name='blog'),
-    path('contact-me/', contact_tab_view, name='contact'),
-    path('edit-home-page/<str:username>/', edit_home_page_view, name="edit_home")
+    path('', views.my_resume, name='my-resume'),
+    path('edit-profile/', views.edit_profile, name='edit-profile'),
+    path('delete/<int:pk>.', views.delete_my_resume, name='delete-resume'),
+    path('resume/create/', views.ResumeBucket.as_view(views.FORMS), name='create-resume'),
+    path('edit/resume/<int:pk>/', views.ResumeBucket.as_view(views.FORMS), name='edit-resume'),
+    path('templates/', views.templates, name='templates'),
+    path('resume/<int:pk>/choose/', views.choose, name='choose'),
+    path('resume/<int:pk>/view-resume/', views.choose, name='views-resume'),
 ]

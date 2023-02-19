@@ -6,105 +6,92 @@ home/models.py
 """
 
 from django.db import models
-from django.db.models.signals import post_save
-from django.utils import timezone
 
-from users.models import NewUser
+from .choices import LANGUAGE_PROFICIENCY_CHOICES, SKILL_PROFICIENCY_CHOICES, COURSEWORK_PROFICIENCY_CHOICES
+from users.models import User
 
-class Profile(models.Model):
-    """Profile
-    Stores User Info, related to :model:`users.NewUser`.
-    """
-    user = models.OneToOneField(NewUser, on_delete=models.CASCADE)
-    firstname = models.CharField(max_length=60, default="")
-    lastname = models.CharField(max_length=60, default="")
 
-    bio = models.TextField(blank=True, null=True)
-    profile_picture = models.ImageField(
-        upload_to='profile_pics',
-        blank=True,
-        default='profile_pics/default_profile.png'
-    )
-    role = models.CharField(max_length=50, default="")
-    phonenumber = models.CharField(max_length=11, default="")
+class ResumeMetaData(models.Model):
+    resume_name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    
+    def __str__(sellf):
+        return self.name + "|" + self.user.username
 
-    skills = models.TextField(blank=False, default='')
-    coursework = models.TextField(blank=False, default='')
 
-    last_modified = models.DateField(auto_now=True)
-
+class Experience(models.Model):
+    resume=models.ForeignKey(ResumeMetaData, on_delete=models.CASCADE, blank=True)
+    position = models.CharField(max_length=255, blank=True)
+    company = models.CharField(max_length=255, blank=True)
+    city = models.CharField(max_length=255 ,blank=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    description = models.TextField(max_length=1024, blank=True, null=True)
+    
     def __str__(self):
-        return str(self.user.id) + ' | ' + str(self.user.username)
-
-
-class Social(models.Model):
-    """Social
-    Stores Social data of the user, related to :model:`users.NewUser`.
-    """
-    user = models.ForeignKey(NewUser, on_delete=models.CASCADE)
-    platform_name = models.CharField(max_length=64, default="")
-    platform_url = models.URLField(max_length=255)
-
-    def __str__(self):
-        return str(self.user.username) + ' | ' + str(self.platform_name)
-
+        return self.position
+    
+    class Meta:
+        verbose_name_plural = "Experience"
+        ordering = ['-end_date', ]    
 
 
 class Education(models.Model):
-    """Education
-    Stores Education details of the user, related to :model:`users.NewUser`.
-    """
-    user = models.ForeignKey(NewUser, on_delete=models.CASCADE)
-    school = models.CharField(max_length=200, default="")
-    degree = models.CharField(max_length=200, default="")
-    startdate = models.DateField(null=True, blank=True, default=None)
-    enddate = models.DateField(null=True, blank=True, default=None)
-    grade = models.CharField(max_length=10, default="")
-    description = models.TextField(max_length=500, default=500)
-
+    resume = models.ForeignKey(ResumeMetaData, on_delete=models.CASCADE, blank=True)
+    school = models.CharField(max_length=255, blank=True)
+    degree = models.CharField(max_length=255, blank=True)
+    major = models.CharField(max_length=255, blank=True)
+    grade = models.FloatField(blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    
     def __str__(self):
-        return str(self.user.username) + ' | ' + str(self.school)
+        return self.school
+    
+    class Meta:
+        verbose_name_plural = "Education"
+        ordering = ['-end_date', ]
 
 
-class Certificates(models.Model):
-    """Certificates
-    Stores Certificates details of the user, related to :model:`users.NewUser`.
-    """
-    user = models.ForeignKey(NewUser, on_delete=models.CASCADE)
-    program_name = models.CharField(max_length=50)
-    platform_name = models.CharField(max_length=30)
-    issued_date = models.DateField(default=timezone.now)
-    certificate_id = models.CharField(max_length=200)
-    certificate_url = models.URLField(max_length=200)
-
+class Certificate(models.Model):
+    resume = models.ForeignKey(ResumeMetaData, on_delete=models.CASCADE, blank=True)
+    program_name = models.CharField(max_length=255, blank=True)
+    platform_name = models.CharField(max_length=255, blank=True)
+    issued_date = models.DateField(blank=True, null=True)
+    certificate_id = models.CharField(max_length=255, blank=True, null=True)
+    certificate_url = models.URLField(blank=True, null=True)
+    
     def __str__(self):
-        return str(self.user.username) + ' | ' + str(self.program_name)
+        return self.platform_name
+
+    class Meta:
+        ordering = ['-issued_date', ]
 
 
-class Project(models.Model):
-    """Project
-    Stores Project details of the user, related to :model:`users.NewUser`.
-    """
-    user = models.ForeignKey(NewUser, on_delete=models.CASCADE)
-    project_name = models.CharField(max_length=50)
-    start_duration = models.DateField(default=timezone.now)
-    end_duration = models.DateField(default=timezone.now)
-    bio_project = models.TextField(blank=True, null=True)
-    project_url = models.URLField(max_length=200)
-
+class Skill(models.Model):
+    resume = models.ForeignKey(ResumeMetaData, on_delete=models.CASCADE, blank=True)
+    skill_name = models.CharField(max_length=255, blank=True)
+    proficiency = models.IntegerField(choices=SKILL_PROFICIENCY_CHOICES, blank=True, null=True)
+    
     def __str__(self):
-        return str(self.user.username) + ' | ' + str(self.project_name)
+        return self.skill_name
 
-def create_profile(instance, created, *args, **kwargs):
-    """create an instance for every new User"""
-    if not created:
-        return
-    Profile.objects.create(user=instance)
-    Social.objects.create(user=instance)
-    Education.objects.create(user=instance)
-    Certificates.objects.create(user=instance)
-    Project.objects.create(user=instance)
-post_save.connect(create_profile, sender=NewUser)
 
-class RecentPost(models.Model):
-    '''To be impoted form Blog App'''
+class Language(models.Model):
+    resume = models.ForeignKey(ResumeMetaData, on_delete=models.CASCADE, blank=True)
+    language_name = models.CharField(max_length=255, blank=True)
+    proficiency = models.IntegerField(choices=LANGUAGE_PROFICIENCY_CHOICES, blank=True, null=True)
+    
+    def __str__(self):
+        return self.language_name
+
+
+class Coursework(models.Model):
+    resume = models.ForeignKey(ResumeMetaData, on_delete=models.CASCADE, blank=True)
+    coursework_name = models.CharField(max_length=255, blank=True)
+    proficiency = models.IntegerField(choices=COURSEWORK_PROFICIENCY_CHOICES, blank=True, null=True)
+    
+    def __str__(self):
+        return self.coursework_name

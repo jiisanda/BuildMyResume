@@ -27,6 +27,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=255, blank=True)
     country = models.CharField(max_length=255, blank=True)
     linkedin = models.CharField(max_length=255, )
+    bio = models.TextField(max_length=1024, blank=True, null=True)
     profile_picture = ResizedImageField(
         size=[300, 300],
         quality=100,

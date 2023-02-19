@@ -13,6 +13,7 @@ from users import views as users_views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    path('home/', include(('home.urls', 'home'), namespace='home')),
     path('accounts/', include('allauth.urls')),
 
     path('signup/', users_views.signup, name='signup'),
