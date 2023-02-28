@@ -84,7 +84,7 @@ def edit_profile(request):
         'user_form':user_form,
         'profile_form':profile_form,
     }
-    return render(request, 'home/profile.html', context)
+    return render(request, 'home/profile-edit.html', context)
 
 
 @login_required()

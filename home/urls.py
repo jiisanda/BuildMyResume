@@ -12,7 +12,7 @@ from users import views as user_views
 app_name = 'home'
 
 urlpatterns = [
-    path('', views.my_resume, name='my-resume'),
+    path('my-resume', views.my_resume, name='my-resume'),
     path('edit-profile/', views.edit_profile, name='edit-profile'),
     path('delete/<int:pk>.', views.delete_my_resume, name='delete-resume'),
     path('resume/create/', views.ResumeBucket.as_view(views.FORMS), name='create-resume'),

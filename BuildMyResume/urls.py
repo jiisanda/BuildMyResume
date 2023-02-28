@@ -8,10 +8,12 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+from . import views
 from users import views as users_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.home_view, name='home'),
 
     path('home/', include(('home.urls', 'home'), namespace='home')),
     path('accounts/', include('allauth.urls')),

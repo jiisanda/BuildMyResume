@@ -1,8 +1,12 @@
+{% extends "home/base.html" %}
 {% load static %}
 {% load socialaccount %}
 
 {% block content %}
     <link rel="stylesheet" href="{% static 'users/users.css' %}">  
+    {% if user.is_authenticated %}
+        <p>All ready loged in...</p>
+    {% else %}
     <div class="card text-center" id="card-login">
         <h1>BuildMyResume | Login</h1>
         {% if messages %}
@@ -62,4 +66,5 @@
 
         </form>
     </div>
+    {% endif %}
 {% endblock content %}  
