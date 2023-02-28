@@ -3,9 +3,9 @@ Hello {{ user.username }} form BuildMyResume!
 
 Please click the link below to complete your registration process:
 
-http://{{ domain }}{% url 'active' uidb64=uid token=token %}
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 
 Regards,
 BuildMyResume Team
 
-{% autoescape %}
+{% endautoescape %}

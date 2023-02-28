@@ -79,7 +79,7 @@ def edit_profile(request):
             return HttpResponseRedirect(reverse('home:edit-profile'))
     else:
         user_form = CustomUserChangeForm(instance=request.user)
-        profile_form - ProfileUpdateFrom(instance=request.user.profile)
+        profile_form = ProfileUpdateFrom(instance=request.user.profile)
     context = {
         'user_form':user_form,
         'profile_form':profile_form,

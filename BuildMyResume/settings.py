@@ -142,6 +142,18 @@ AUTH_USER_MODEL = 'users.User'
 
 # LOGIN_REDIRECT_URL = 'login'
 LOGIN_URL = reverse_lazy('home')
+LOGIN_REDIRECT_URL = 'home'
+
+# Redirect after loggin
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_AUTHENTICATION_LOGIN_REDIRECT = True
+
+# Redirect After Logout
+ACCOUNT_REDIRECT_LOGOUT = '/'
+ACCOUNT_LOGOUT_ON_GET = True
+
+# Directly taking the user to google oauth page -- the intermediate page is removed
+SOCIALACCOUNT_LOGIN_ON_GET = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
