@@ -2,6 +2,7 @@
 users/views.py
 
 """
+from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
@@ -46,7 +47,7 @@ def signup(request):
             send_email_to = form.cleaned_data.get('email')
             email = EmailMessage(mail_subject, message, to=[send_email_to])
             email.send()
-            message.success(request, "Verification email sent to {}. Do activate your account".format(user.email))
+            messages.success(request, "Verification email sent to {}. Do activate your account".format(user.email))
             
             return redirect('login')
     else:
