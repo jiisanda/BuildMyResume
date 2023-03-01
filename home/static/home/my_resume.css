@@ -1,0 +1,45 @@
+.resumes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resume-card {
+    border: 0 0 0 5px black;
+}
+
+.create-resume-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-resume-btn button {
+    border: 5rem;
+    padding: 0.8rem;
+    border-radius: 2cm;
+    background-color: #227C70;
+    color: #FAF8F1;
+}
+
+.create-resume-btn button:hover {
+    background-color: #460C68;
+    color: #FFFBEB;
+}
+
+.delete-edit-view button {
+    border: none;
+    background-color: #472183;
+    color: #F1F6F5;
+    font-size: small;
+    padding: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-radius: 6px;
+    margin-right: 1rem;
+}
+
+.delete-edit-view button:hover {
+    background-color: #FFFFD0;
+    color: #A555EC;
+}

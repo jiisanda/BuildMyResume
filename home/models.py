@@ -17,8 +17,8 @@ class ResumeMetaData(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     
-    def __str__(sellf):
-        return self.name + "|" + self.user.username
+    def __str__(self):
+        return self.resume_name + " | " + self.user.username
 
 
 class Experience(models.Model):

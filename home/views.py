@@ -92,7 +92,7 @@ def delete_my_resume(request, pk):
     resume = ResumeMetaData.objects.get(pk=pk)
     resume.delete()
     messages.success(request, "Resume is successfully deleted!")
-    return HttpResponseRedirect(reverse('home:my-resumes'))
+    return HttpResponseRedirect(reverse('home:my-resume'))
 
 def dict_has_data(input_dict):
     is_data_present = False
