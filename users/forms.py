@@ -42,6 +42,27 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomUserChangeForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # first name fields
+        self.fields['first_name'].widget.attrs.update({
+            'type':"text",
+            'class':"form-control",
+            'name':"first_name",
+            'maxlength':"30",
+            'required':'',
+            'id':"id_first_name",
+            'placeholder':"First Name*",
+        })
+        self.fields['last_name'].widget.attrs.update({
+            'type':"text",
+            'class':"form-control",
+            'name':"last_name",
+            'maxlength':"30",
+            'required':'',
+            'id':"id_last_name",
+            'placeholder':"Last Name*",
+        })
     
     class Meta:
         model = User

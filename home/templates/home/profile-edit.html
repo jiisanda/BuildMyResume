@@ -1,6 +1,71 @@
 {% extends "home/base.html" %}
 {% load static %}
+{% block title %}<title>BMR | Profile</title>{% endblock %}
 
 {% block content %}
+<div class="card text-center profile-update-card">
+    <form class="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-title">
+            <h1>Profile</h1>
+        </div>
+        <div class="profile-image">
+            <!-- {% if user.profile.profile_picture.url %}
+                <img src="{% static 'user.profile.profile_picture.url' %}">
+            {% else %} -->
+                <!-- <img src="{% static 'media/profile_pics/default_profile.jpg' %}" id="user-img"> -->
+            <!-- {% endif %} -->
+        </div>
+        <div class="profile-edit-form">
+            <!--User Form-->
+            <div class="form-floating mb-3">
+                {{ user_form.first_name }}
+                <label for="id_first_name" class="form_label">First Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                {{ user_form.last_name }}
+                <label for="id_last_name" class="form_label">Last Name</label>
+            </div>
+            <!--Profile Form-->
+            <div class="form-floating mb-3">
+                {{ profile_form.position }}
+                <label for="id_first_name" class="form_label">Position</label>
+            </div>
+            <div class="form-floating mb-3">
+                {{ profile_form.address }}
+                <label for="id_address" class="form_label">Address</label>
+            </div>
+            <div class="form-floating mb-3">
+                {{ profile_form.city }}
+                <label for="id_city" class="form_label">City</label>
+            </div>
+            <div class="form-floating mb-3">
+                {{ profile_form.country }}
+                <label for="id_country" class="form_label">Country</label>
+            </div>
+            <div class="form-floating mb-3">
+                {{ profile_form.phonenumber }}
+                <label for="id_phonenumber" class="form_label">Mobile Number</label>
+            </div>
+            <div class="form-floating mb-3">
+                {{ profile_form.linkedin }}
+                <label for="id_linkedin" class="form_label">LinkedIn</label>
+            </div>
+            <div class="form-floating mb-3">
+                {{ profile_form.bio }}
+                <label for="id_bio" class="form_label">Bio</label>
+            </div>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="inputGroupFile02">
+                <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            </div>
+            <!-- {{ profile_form.profile_picture }} -->
+        </div>
+        <div class="profile-edit-form">
+            <button type="submit" class="submit-button">Update/Save</button>
+        </div>
+    </form>
+</div>
+
 
 {% endblock content %}

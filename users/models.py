@@ -31,7 +31,7 @@ class Profile(models.Model):
     profile_picture = ResizedImageField(
         size=[300, 300],
         quality=100,
-        default="profile_pics/default_profile.png",
+        default="profile_pics/default_profile.jpg",
         upload_to="profile_pics"
     )
     

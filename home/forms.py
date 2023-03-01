@@ -17,6 +17,86 @@ from .choices import RESUME_CHOICES
 
 
 class ProfileUpdateFrom(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # position field
+        self.fields['position'].widget.attrs.update({
+            'type':"text",
+            'class':"form-control",
+            'name':"position",
+            'maxlength':"30",
+            'required':'',
+            'id':"id_position",
+            'placeholder':"Position*",
+        })
+        # address field
+        self.fields['address'].widget.attrs.update({
+            'type':"text",
+            'class':"form-control",
+            'name':"address",
+            'maxlength':"30",
+            'required':'',
+            'id':"id_address",
+            'placeholder':"Address*",
+        })
+        # city field
+        self.fields['city'].widget.attrs.update({
+            'type':"text",
+            'class':"form-control",
+            'name':"city",
+            'maxlength':"30",
+            'required':'',
+            'id':"id_city",
+            'placeholder':"City*",
+        })
+        # country field
+        self.fields['country'].widget.attrs.update({
+            'type':"text",
+            'class':"form-control",
+            'name':"country",
+            'maxlength':"30",
+            'required':'',
+            'id':"id_countryn",
+            'placeholder':"Country*",
+        })
+        # phonenumber field
+        self.fields['phonenumber'].widget.attrs.update({
+            'type':"text",
+            'class':"form-control",
+            'name':"phonenumber",
+            'maxlength':"30",
+            'required':'',
+            'id':"id_phonenumber",
+            'placeholder':"Mobile Number*",
+        })
+        # linkedin
+        self.fields['linkedin'].widget.attrs.update({
+            'type':"text",
+            'class':"form-control",
+            'name':"linkedin",
+            'maxlength':'1024',
+            'required':'',
+            'id':"id_linkedin",
+            'placeholder':"LinkedIn",
+        })
+        # bio field
+        self.fields['bio'].widget.attrs.update({
+            'type':"text",
+            'class':"form-control",
+            'name':"bio",
+            'maxlength':'1024',
+            'required':'',
+            'id':"id_bio",
+            'placeholder':"Bio",
+        })
+        # profile_picture field
+        self.fields['profile_picture'].widget.attrs.update({
+            'type':'file',
+            'class':'form-control',
+            'name':'profile_picture',
+            'accept':'image/',
+            'id':'id_profile_picture',
+        })
     
     class Meta:
         model = Profile
@@ -28,6 +108,7 @@ class ProfileUpdateFrom(forms.ModelForm):
             'country': forms.TextInput(attrs={'placeholder':'Country'}),
             'phonenumber': forms.TextInput(attrs={'placeholder':'Mobile Number'}),
             'linkedin': forms.TextInput(attrs={'placeholder':'LinkedIn Profile'}),
+            'bio': forms.Textarea(attrs={'cols':5}),
         }
         labels = {
             "linkedin": "LinkedIn Profile",

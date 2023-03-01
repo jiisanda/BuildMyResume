@@ -1,0 +1,61 @@
+.form-title {
+    font-family: 'Courier New', Courier, monospace;
+    padding-bottom: 2rem;
+}
+
+.profile-update-card {
+    border-radius: 2rem;
+    border-color: #13005A;
+    width: 50%;
+    padding: 3em;
+    padding-bottom: 2rem;
+    margin-top: auto;
+    margin: 0 auto;
+    float: none;
+    margin-right: auto;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.profile-edit-form {
+    padding-top: 2em;
+}
+
+.profile-edit-form input {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+
+.profile-edit-form input:focus {
+    box-shadow: 0 0 0 0rem #060047;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+
+.profile-edit-form textarea {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+
+.profile-edit-form textarea:focus {
+    box-shadow: 0 0 0 0rem #060047;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+
+.submit-button {
+    border: none;
+    padding: 1rem;
+    border-radius: 5rem;
+    background-color: #20262E;
+    color: #ECF9FF;
+}
+
+.submit-button:hover {
+    background-color: #ECF9FF;
+    color: #20262E;
+}
