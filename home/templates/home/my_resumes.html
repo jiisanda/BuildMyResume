@@ -1,6 +1,6 @@
-{% extends "home/base.html" %}
+{% extends "home/base_layout.html" %}
 {% load static %}
-{% block title %}<title>BMR | MyResume</title>{% endblock %}
+{% block title %}<title>BMR | MyResume</title>{% endblock title %}
 {% block content %}
     <div class="resumes">
         {% for resume in resumes %}
