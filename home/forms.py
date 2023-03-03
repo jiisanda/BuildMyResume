@@ -127,7 +127,7 @@ class ChooseForm(forms.Form):
 
 class MyModelFormSet(forms.BaseModelFormSet):
     def __init__(self, *args, **kwargs):
-        super(MyModelFormSet, self).__init__(**args, **kwargs)
+        super(MyModelFormSet, self).__init__(*args, **kwargs)
         for form in self.forms:
             form.empty_permitted = False
 
@@ -246,7 +246,7 @@ class SkillForm(forms.ModelForm):
             'skill_name': 'Skill Name',
         }
 
-SkillFromSet = forms.modelformset_factory(Skill, form=SkillForm, formset=MyModelFormSet, max_num=5)
+SkillFormSet = forms.modelformset_factory(Skill, form=SkillForm, formset=MyModelFormSet, max_num=5)
 
 
 class LanguageForm(forms.ModelForm):
@@ -273,7 +273,7 @@ class LanguageForm(forms.ModelForm):
             'language_name': 'Language Name',
         }
 
-LanguageFromSet = forms.modelformset_factory(Language, form=LanguageForm, formset=MyModelFormSet, max_num=5)
+LanguageFormSet = forms.modelformset_factory(Language, form=LanguageForm, formset=MyModelFormSet, max_num=5)
 
 
 class CourseworkForm(forms.ModelForm):
@@ -300,4 +300,4 @@ class CourseworkForm(forms.ModelForm):
             'coursework_name': 'Coursework Name',
         }
 
-CourseworkFromSet = forms.modelformset_factory(Coursework, form=CourseworkForm, formset=MyModelFormSet, max_num=5)
+CourseworkFormSet = forms.modelformset_factory(Coursework, form=CourseworkForm, formset=MyModelFormSet, max_num=5)
