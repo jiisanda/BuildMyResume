@@ -4,14 +4,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from formtools.wizard.views import SessionWizardView
 
 from users.forms import CustomUserChangeForm
-from .forms import (ResumeForm, ExperienceForm, CertificateForm, EducationForm, 
-                    SkillForm, LanguageForm, CourseworkForm, ChooseForm, ProfileUpdateFrom)
+from .forms import (ResumeForm, ProfileUpdateFrom, EducationFormSet, ExperienceFormSet, CertificateFormSet,  
+                    SkillFormSet, LanguageFormSet, CourseworkFormSet, ChooseForm)
 from .models import ResumeMetaData, Experience, Education, Certificate, Skill, Language, Coursework
 
 logging.basicConfig(level=logging.INFO)
@@ -19,20 +19,20 @@ logger = logging.getLogger(__name__)
 
 FORMS = [
     ('resumes', ResumeForm),
-    ('experience', ExperienceForm),
-    ('certificates', CertificateForm),
-    ('education', EducationForm),
-    ('skills', SkillForm),
-    ('languages', LanguageForm), 
-    ('coursework', CourseworkForm),
+    ('education', EducationFormSet),
+    ('experience', ExperienceFormSet),
+    ('certificates', CertificateFormSet),
+    ('skills', SkillFormSet),
+    ('languages', LanguageFormSet), 
+    ('coursework', CourseworkFormSet),
 ]
 
-FORM_TYPES = ('experience', 'certificates', 'education', 'skills', 'languages', 'coursework', )
+FORM_TYPES = ('education', 'experience', 'certificates', 'skills', 'languages', 'coursework', )
 
 TEMPLATES = {
     'resumes': 'home/resumes.html',
-    'experience': 'home/experience.html',
     'education': 'home/education.html',
+    'experience': 'home/experience.html',
     'certificates': 'home/certificates.html',
     'skills': 'home/skills.html',
     'languages': 'home/languages.html',
@@ -117,10 +117,10 @@ class ResumeBucket(LoginRequiredMixin, SessionWizardView):
             resume = Resume.objects.get(id=pk)
             if step == 'resumes':
                 return resume
-            if step == 'experience':
-                return resume.experience_set.all()
             if step == 'education':
                 return resume.education_set.all()
+            if step == 'experience':
+                return resume.experience_set.all()
             if step == 'certificates':
                 return resume.certificates_set.all()
             if step == 'skills':
@@ -132,12 +132,12 @@ class ResumeBucket(LoginRequiredMixin, SessionWizardView):
         else:
             if step == 'resumes':
                 return None
+            if step == 'education':
+                return Education.objects.none()
             if step == 'experience':
                 return Experience.objects.none()
             if step == 'certificates':
                 return Certificate.objects.none()
-            if step == 'education':
-                return Education.objects.none()
             if step == 'skills':
                 return Skill.objects.none()
             if step == 'languages':
@@ -157,14 +157,15 @@ class ResumeBucket(LoginRequiredMixin, SessionWizardView):
             pk = self.kwargs['pk']
         else:
             pk = None
-        resume, created = ResumeMetaData.objects.update_or_create(id=pk, defaults={'user':user, 'resume_name':resume_name})
+        resume, created = ResumeMetaData.objects.update_or_create(id=pk, defaults={'user':user, 
+                                                                                   'resume_name':resume_name, })
         
         for form_name in FORM_TYPES:
             form_data_list = self.get_cleaned_data_for_step(form_name)
             for form_data in form_data_list:
                 if not dict_has_data(form_data):
                     continue
-                form_data['resume'] = resume
+                form_data['resume_name'] = resume
                 
                 form_instance = self.get_form(step=form_name)
                 obj = form_data.pop('id')
