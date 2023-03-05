@@ -1,0 +1,190 @@
+body {
+    background: rgb(255,255,255);
+    /* background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,172,255,1) 67%, rgba(0,60,168,1) 100%); */
+}
+
+/* Style-NAVBAR */
+#nav-title {
+    color:black;
+    font-weight: 500;
+    padding-left: 2rem;
+}
+
+#nav-title:hover {
+    color: #1C0C58
+}
+
+#navbar-links {
+    color:black;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+}
+
+#navbar-links:hover {
+    text-decoration: underline;
+    color:orangered;
+}
+
+/* FOOTER */
+#footer {
+    display: table;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.socialCol li {
+    margin-top: 80px;
+    display: inline-block;
+}
+.socialCol li + li {
+    padding-left: 35px;
+}
+.socialCol img {
+    max-width: 30px;
+    max-height: 30px;
+    -o-object-fit: contain;
+    object-fit: contain;
+}
+.copyrightCol {
+    padding: 20px 0 0;
+    font-size: 14px;
+    color: #20262E;
+}
+
+.copyrightCol a {
+    color: #00337C;
+}
+
+.copyrightCol p {
+    margin: 0;
+}
+
+/* my_resume */
+
+.resumes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resume-card {
+    border: 0 0 0 5px black;
+}
+
+.create-resume-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-resume-btn button {
+    border: 5rem;
+    padding: 0.8rem;
+    border-radius: 2cm;
+    background-color: #227C70;
+    color: #FAF8F1;
+}
+
+.create-resume-btn button:hover {
+    background-color: #460C68;
+    color: #FFFBEB;
+}
+
+.delete-edit-view button {
+    border: none;
+    background-color: #472183;
+    color: #F1F6F5;
+    font-size: small;
+    padding: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-radius: 6px;
+    margin-right: 1rem;
+}
+
+.delete-edit-view button:hover {
+    background-color: #FFFFD0;
+    color: #A555EC;
+}
+
+
+/* profile-edit */
+
+.form-title {
+    font-family: 'Courier New', Courier, monospace;
+    padding-bottom: 2rem;
+}
+
+.profile-update-card {
+    border-radius: 2rem;
+    border-color: #13005A;
+    width: 50%;
+    padding: 3em;
+    padding-bottom: 2rem;
+    margin-top: auto;
+    margin: 0 auto;
+    float: none;
+    margin-right: auto;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.profile-edit-form {
+    padding-top: 2em;
+}
+
+.profile-edit-form input {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+
+.profile-edit-form input:focus {
+    box-shadow: 0 0 0 0rem #060047;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+
+.profile-edit-form textarea {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+
+.profile-edit-form textarea:focus {
+    box-shadow: 0 0 0 0rem #060047;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+
+.submit-button {
+    border: none;
+    padding: 1rem;
+    border-radius: 5rem;
+    background-color: #20262E;
+    color: #ECF9FF;
+}
+
+.submit-button:hover {
+    background-color: #ECF9FF;
+    color: #20262E;
+}
+
+
+/* Form Set */
+
+.formset {
+    padding-bottom: 15px;
+}
+
+.delete-row {
+    color: #3F497F;
+}
+
+.add-row {
+    color: #3F497F;
+}
