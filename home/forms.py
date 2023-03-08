@@ -149,19 +149,19 @@ class ResumeForm(forms.ModelForm):
 
 class ExperienceForm(forms.ModelForm):
     start_date = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
-                                 widget=forms.DateInput(format='%d/%m/%Y', attrs={
-                                     'class':'date-picker', 'placeholder':'DD/MM/YYYY',
-                                 }))
+                                widget=forms.DateInput(format='%d/%m/%Y', attrs={
+                                    'class':'date-picker', 'placeholder':'DD/MM/YYYY',
+                                }))
     end_date = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
-                                 widget=forms.DateInput(format='%d/%m/%Y', attrs={
-                                     'class':'date-picker', 'placeholder':'DD/MM/YYYY',
-                                 }))
+                               widget=forms.DateInput(format='%d/%m/%Y', attrs={
+                                   'class':'date-picker', 'placeholder':'DD/MM/YYYY',
+                                }))
     
     class Meta:
-        models = Experience
+        model = Experience
         fields = ['position', 'company', 'city', 'start_date', 'end_date', 'description', 'resume', ]
         widgets = {
-            'description': forms.Textarea(attrs={'cols':50, 'rows':10}),
+            'description': forms.Textarea(attrs={'class': 'objective-box', 'cols':50, 'rows':10}),
             'position': forms.TextInput(attrs={'placeholder':'Ex.: Backend Developer'}),
             'company': forms.TextInput(attrs={'placeholder':'Company Name'}),
             'city': forms.TextInput(attrs={'placeholder':'Location'}),
@@ -174,12 +174,12 @@ ExperienceFormSet = forms.modelformset_factory(Experience, form=ExperienceForm, 
 class EducationForm(forms.ModelForm):
     start_date = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
                                  widget=forms.DateInput(format='%d/%m/%Y', attrs={
-                                     'class':'date-picker', 'placeholder':'DD/MM/YYYY',
-                                 }))
+                                    'class':'date-picker', 'placeholder':'DD/MM/YYYY',
+                                }))
     end_date = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
                                  widget=forms.DateInput(format='%d/%m/%Y', attrs={
-                                     'class':'date-picker', 'placeholder':'DD/MM/YYYY',
-                                 }))
+                                    'class':'date-picker', 'placeholder':'DD/MM/YYYY',
+                                }))
     
     class Meta:
         model = Education
@@ -191,8 +191,8 @@ class EducationForm(forms.ModelForm):
             'grade': forms.NumberInput(attrs={'placeholder':'Grade'}),
             'resume': forms.HiddenInput(),
         }
-        label = {
-            'grade':'GRADE',
+        labels = {
+            'grade':'Grade'
         }
 
 
@@ -200,14 +200,14 @@ EducationFormSet = forms.modelformset_factory(Education, form=EducationForm, for
 
 
 class CertificateForm(forms.ModelForm):
-    date_issued = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
+    issued_date = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
                                  widget=forms.DateInput(format='%d/%m/%Y', attrs={
                                      'class':'date-picker', 'placeholder':'DD/MM/YYYY',
                                  }))
-    
+
     class Meta:
         model = Certificate
-        fields = ['program_name', 'date_issued', 'platform_name', 'certificate_id', 'certificate_url', 'resume', ]
+        fields = ['program_name', 'issued_date', 'platform_name', 'certificate_id', 'certificate_url', 'resume', ]
         widgets = {
             'program_name': forms.TextInput(attrs={'placeholder':'Program Name'}),
             'platform_name': forms.TextInput(attrs={'placeholder':'Platform Name'}),
@@ -239,7 +239,7 @@ class SkillForm(forms.ModelForm):
         fields = ['skill_name', 'proficiency', 'resume', ]
         widgets = {
             'proficiency': forms.Select(attrs={'class':'form-control'}),
-            'skill_name': forms.TextInput(attrs={'placeholder':'Skills Ex.: Python'}),
+            'skill_name': forms.TextInput(attrs={'placeholder':'Ex.: Python'}),
             'resume': forms.HiddenInput(),
         }
         label={
@@ -293,7 +293,7 @@ class CourseworkForm(forms.ModelForm):
         fields = ['coursework_name', 'proficiency', 'resume', ]
         widgets = {
             'proficiency': forms.Select(attrs={'class':'form-control'}),
-            'coursework_name': forms.TextInput(attrs={'placeholder':'Language Ex.: Database Management'}),
+            'coursework_name': forms.TextInput(attrs={'placeholder':'Ex.: Database Management'}),
             'resume': forms.HiddenInput(),
         }
         label={

@@ -1,10 +1,3 @@
-"""
-home/models.py
-
-:Models: 
-```Profile``` ```Social``` ```Education``` ```Certificates``` ```Project```
-"""
-
 from django.db import models
 
 from .choices import LANGUAGE_PROFICIENCY_CHOICES, SKILL_PROFICIENCY_CHOICES, COURSEWORK_PROFICIENCY_CHOICES
@@ -25,7 +18,7 @@ class Experience(models.Model):
     resume=models.ForeignKey(ResumeMetaData, on_delete=models.CASCADE, blank=True)
     position = models.CharField(max_length=255, blank=True)
     company = models.CharField(max_length=255, blank=True)
-    city = models.CharField(max_length=255 ,blank=True)
+    city = models.CharField(max_length=255, blank=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     description = models.TextField(max_length=1024, blank=True, null=True)
@@ -35,7 +28,7 @@ class Experience(models.Model):
     
     class Meta:
         verbose_name_plural = "Experience"
-        ordering = ['-end_date', ]    
+        ordering = ['-end_date', ]
 
 
 class Education(models.Model):

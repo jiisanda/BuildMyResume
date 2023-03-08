@@ -1,6 +1,7 @@
 {% extends "home/base_layout.html" %}
 {% load i18n %}
 {% load static %}
+
 {% block subheader %}
     <form action="" method="POST">
         {% csrf_token %}
@@ -13,7 +14,7 @@
                 <li><button name="bucket_goto_step" type="submit" value="certificate">4. Certificate</button></li>
                 <li><button name="bucket_goto_step" type="submit" value="skills">5. Skills</button></li>
                 <li><button name="bucket_goto_step" type="submit" value="language">6. Languages</button></li>
-                <li><button name="bucket_goto_step" type="submit" value="coursework">7. Coursework</button></li>
+                <li><button name="bucket_goto_step" type="submit" value="courseworks">7. Coursework</button></li>
             </ul>
         </div>
     </form>
@@ -24,7 +25,7 @@
         {% csrf_token %}
         <p class="step-para">Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
         <div class="form-header">
-            <h1>Education</h1>
+            <h1>Courseworks</h1>
         </div>
 
         {{ wizard.management_form }}
@@ -48,10 +49,11 @@
         </div>
     </form>
 {% endblock content %}
+
 {% block script %}
     <script type="text/javascript">
         $(function() {
-            $('.form-duplicate').formset({prefix:'education'});
+            $('.form-duplicate').formset({prefix:'courseworks'});
         })
     </script>
 {% endblock script %}

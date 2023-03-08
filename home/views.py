@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse
 
 from formtools.wizard.views import SessionWizardView
@@ -24,10 +24,10 @@ FORMS = [
     ('certificates', CertificateFormSet),
     ('skills', SkillFormSet),
     ('languages', LanguageFormSet), 
-    ('coursework', CourseworkFormSet),
+    ('courseworks', CourseworkFormSet),
 ]
 
-FORM_TYPES = ('education', 'experience', 'certificates', 'skills', 'languages', 'coursework', )
+FORM_TYPES = ('education', 'experience', 'certificates', 'skills', 'languages', 'courseworks', )
 
 TEMPLATES = {
     'resumes': 'home/resumes.html',
@@ -36,7 +36,7 @@ TEMPLATES = {
     'certificates': 'home/certificates.html',
     'skills': 'home/skills.html',
     'languages': 'home/languages.html',
-    'coursework': 'home/coursework.html',
+    'courseworks': 'home/courseworks.html',
 }
 
 
@@ -114,7 +114,7 @@ class ResumeBucket(LoginRequiredMixin, SessionWizardView):
     def get_form_instance(self, step):
         if 'pk' in self.kwargs:
             pk = self.kwargs['pk']
-            resume = Resume.objects.get(id=pk)
+            resume = ResumeMetaData.objects.get(id=pk)
             if step == 'resumes':
                 return resume
             if step == 'education':
@@ -122,12 +122,12 @@ class ResumeBucket(LoginRequiredMixin, SessionWizardView):
             if step == 'experience':
                 return resume.experience_set.all()
             if step == 'certificates':
-                return resume.certificates_set.all()
+                return resume.certificate_set.all()
             if step == 'skills':
                 return resume.skill_set.all()
             if step == 'languages':
                 return resume.language_set.all()
-            if step == 'coursework':
+            if step == 'courseworks':
                 return resume.coursework_set.all()
         else:
             if step == 'resumes':
@@ -142,7 +142,7 @@ class ResumeBucket(LoginRequiredMixin, SessionWizardView):
                 return Skill.objects.none()
             if step == 'languages':
                 return Language.objects.none()
-            if step == 'coursework':
+            if step == 'courseworks':
                 return Coursework.objects.none()
         return None
     
@@ -165,7 +165,7 @@ class ResumeBucket(LoginRequiredMixin, SessionWizardView):
             for form_data in form_data_list:
                 if not dict_has_data(form_data):
                     continue
-                form_data['resume_name'] = resume
+                form_data['resume'] = resume
                 
                 form_instance = self.get_form(step=form_name)
                 obj = form_data.pop('id')

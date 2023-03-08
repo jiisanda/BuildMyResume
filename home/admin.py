@@ -13,7 +13,7 @@ class ResumeAdmin(admin.ModelAdmin):
 
 class ExperienceAdmin(admin.ModelAdmin):
     search_fields = ['position', 'company', ]
-    lsit_display = ['position', 'company', 'resume', ]
+    list_display = ['position', 'company', 'resume', ]
 
 
 class EducationAdmin(admin.ModelAdmin):

@@ -1,6 +1,59 @@
 {% extends "home/base_layout.html" %}
+{% load i18n %}
 {% load static %}
 
-{% block content %}
+{% block subheader %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ wizard.management_form }}
+        <div class="sub-header">
+            <ul>
+                <li><button name="bucket_goto_step" type="submit" value="resumes">1. Resume Name</button></li>
+                <li><button name="bucket_goto_step" type="submit" value="education" class="active">2. Education</button></li>
+                <li><button name="bucket_goto_step" type="submit" value="experience">3. Work Experience</button></li>
+                <li><button name="bucket_goto_step" type="submit" value="certificate">4. Certificate</button></li>
+                <li><button name="bucket_goto_step" type="submit" value="skills">5. Skills</button></li>
+                <li><button name="bucket_goto_step" type="submit" value="language">6. Languages</button></li>
+                <li><button name="bucket_goto_step" type="submit" value="coursework">7. Coursework</button></li>
+            </ul>
+        </div>
+    </form>
+{% endblock subheader %}
 
+{% block content %}
+    <form action="" class="form-labels" method="POST">
+        {% csrf_token %}
+        <p class="step-para">Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+        <div class="form-header">
+            <h1>Languages</h1>
+        </div>
+
+        {{ wizard.management_form }}
+        {% if wizard.form.forms %}
+            {{ wizard.form.management_form }}
+            {% for form in wizard.form.forms %}
+                <div class="resume-form form-duplicate">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="resume-form">
+                {{ wizard.form.as_p }}
+            </div>
+        {% endif %}
+        <div class="resume-form">
+            {% if wizard.steps.prev %}
+                <button name="bucket_goto_step" class="button-previous" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
+            {% endif %}
+            <button type="submit" class="next-button">Next</button>
+        </div>
+    </form>
 {% endblock content %}
+
+{% block script %}
+    <script type="text/javascript">
+        $(function() {
+            $('.form-duplicate').formset({prefix:'languages'});
+        })
+    </script>
+{% endblock script %}
