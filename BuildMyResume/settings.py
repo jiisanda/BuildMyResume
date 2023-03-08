@@ -42,10 +42,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.linkedin',
     'allauth.socialaccount.providers.facebook',
-    'formtools',
 
     'users',
     'home',
+    'formtools',
 ]
 
 MIDDLEWARE = [
@@ -142,8 +142,7 @@ INTERNAL_IPS = [
 AUTH_USER_MODEL = 'users.User'
 
 # LOGIN_REDIRECT_URL = 'login'
-LOGIN_URL = reverse_lazy('home')
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = reverse_lazy('login')
 
 # Redirect after loggin
 LOGIN_REDIRECT_URL = '/'
