@@ -7,13 +7,13 @@
         {{ wizard.management_form }}
         <div class="sub-header">
             <ul>
-                <li><button name="bucket_goto_step" type="submit" value="resumes">1. Resume Name</button></li>
-                <li><button name="bucket_goto_step" type="submit" value="education" class="active">2. Education</button></li>
-                <li><button name="bucket_goto_step" type="submit" value="experience">3. Work Experience</button></li>
-                <li><button name="bucket_goto_step" type="submit" value="certificate">4. Certificate</button></li>
-                <li><button name="bucket_goto_step" type="submit" value="skills">5. Skills</button></li>
-                <li><button name="bucket_goto_step" type="submit" value="language">6. Languages</button></li>
-                <li><button name="bucket_goto_step" type="submit" value="coursework">7. Coursework</button></li>
+                <li><button name="wizard_goto_step" type="submit" value="resumes">1. Resume Name</button></li>
+                <li><button name="wizard_goto_step" type="submit" value="education" class="active">2. Education</button></li>
+                <li><button name="wizard_goto_step" type="submit" value="experience">3. Work Experience</button></li>
+                <li><button name="wizard_goto_step" type="submit" value="certificate">4. Certificate</button></li>
+                <li><button name="wizard_goto_step" type="submit" value="skills">5. Skills</button></li>
+                <li><button name="wizard_goto_step" type="submit" value="language">6. Languages</button></li>
+                <li><button name="wizard_goto_step" type="submit" value="coursework">7. Coursework</button></li>
             </ul>
         </div>
     </form>
@@ -42,7 +42,7 @@
         {% endif %}
         <div class="resume-form">
             {% if wizard.steps.prev %}
-                <button name="bucket_goto_step" class="button-previous" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
+                <button name="wizard_goto_step" class="button-previous" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
             {% endif %}
             <button type="submit" class="next-button">Next</button>
         </div>
