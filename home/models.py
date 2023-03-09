@@ -88,3 +88,16 @@ class Coursework(models.Model):
     
     def __str__(self):
         return self.coursework_name
+
+
+class Project(models.Model):
+    resume = models.ForeignKey(ResumeMetaData, on_delete=models.CASCADE, blank=True)
+    project_name = models.CharField(max_length=255, blank=True)
+    stack_name = models.CharField(max_length=255, blank=True)
+    project_link = models.URLField(blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    description = models.TextField(max_length=1024, blank=True, null=True)
+    
+    def __str__(self):
+        return self.project_name

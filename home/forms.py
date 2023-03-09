@@ -12,7 +12,7 @@ from django import forms
 from django.conf import settings
 
 from users.models import Profile
-from .models import ResumeMetaData, Experience, Certificate, Education, Skill, Language, Coursework
+from .models import ResumeMetaData, Experience, Certificate, Education, Skill, Language, Coursework, Project
 from .choices import RESUME_CHOICES
 
 
@@ -313,3 +313,30 @@ class CourseworkForm(forms.ModelForm):
         }
 
 CourseworkFormSet = forms.modelformset_factory(Coursework, form=CourseworkForm, formset=MyModelFormSet, max_num=5)
+
+
+class ProjectForm(forms.ModelForm):
+    start_date = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
+                                 widget=forms.DateInput(format='%d/%m/%Y', attrs={
+                                    'class':'date-picker', 'placeholder':'DD/MM/YYYY',
+                                }))
+    end_date = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
+                                 widget=forms.DateInput(format='%d/%m/%Y', attrs={
+                                    'class':'date-picker', 'placeholder':'DD/MM/YYYY',
+                                }))
+    
+    class Meta:
+        model = Project
+        fields= ['project_name', 'stack_name', 'project_link', 'start_date', 'end_date', 'description', 'resume', ]
+        widgets = {
+            'project_name': forms.TextInput(attrs={'placeholder':'Project Name'}),
+            'stack_name': forms.TextInput(attrs={'placeholder':'Stack Name'}),
+            'project_link': forms.URLInput(attrs={'placeholder':'Project Link'}),
+            'description': forms.Textarea(attrs={'class':'objective-box', 'cols':50, 'rows':10}),
+            'resume': forms.HiddenInput(),
+        }
+        label = {
+            'project_name': 'Project Name',
+        }
+
+ProjectFormSet = forms.modelformset_factory(Project, form=ProjectForm, formset=MyModelFormSet, max_num=5)

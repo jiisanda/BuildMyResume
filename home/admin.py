@@ -41,6 +41,11 @@ class CourseworkAdmin(admin.ModelAdmin):
     list_display = ['coursework_name', 'resume', ]
 
 
+class ProjectAdmin(admin.ModelAdmin):
+    search_fields = ['project_name', ]
+    list_display = ['project_name', 'resume', ]
+
+
 admin.site.register(models.ResumeMetaData, ResumeAdmin)
 admin.site.register(models.Experience, ExperienceAdmin)
 admin.site.register(models.Education, EducationAdmin)
@@ -48,3 +53,4 @@ admin.site.register(models.Certificate, CertificateAdmin)
 admin.site.register(models.Skill, SkillAdmin)
 admin.site.register(models.Language, LanguageAdmin)
 admin.site.register(models.Coursework, CourseworkAdmin)
+admin.site.register(models.Project, ProjectAdmin)

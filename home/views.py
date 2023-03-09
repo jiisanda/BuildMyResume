@@ -11,8 +11,8 @@ from formtools.wizard.views import SessionWizardView
 
 from users.forms import CustomUserChangeForm
 from .forms import (ResumeForm, ProfileUpdateFrom, EducationFormSet, ExperienceFormSet, CertificateFormSet,  
-                    SkillFormSet, LanguageFormSet, CourseworkFormSet, ChooseForm)
-from .models import ResumeMetaData, Experience, Education, Certificate, Skill, Language, Coursework
+                    SkillFormSet, LanguageFormSet, CourseworkFormSet, ChooseForm, ProjectFormSet)
+from .models import ResumeMetaData, Experience, Education, Certificate, Skill, Language, Coursework, Project
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -25,9 +25,10 @@ FORMS = [
     ('skills', SkillFormSet),
     ('languages', LanguageFormSet), 
     ('courseworks', CourseworkFormSet),
+    ('projects', ProjectFormSet)
 ]
 
-FORM_TYPES = ('education', 'experience', 'certificates', 'skills', 'languages', 'courseworks', )
+FORM_TYPES = ('education', 'experience', 'certificates', 'skills', 'languages', 'courseworks', 'projects',)
 
 TEMPLATES = {
     'resumes': 'home/resumes.html',
@@ -37,6 +38,7 @@ TEMPLATES = {
     'skills': 'home/skills.html',
     'languages': 'home/languages.html',
     'courseworks': 'home/courseworks.html',
+    'projects': 'home/projects.html',
 }
 
 
@@ -129,6 +131,8 @@ class ResumeBucket(LoginRequiredMixin, SessionWizardView):
                 return resume.language_set.all()
             if step == 'courseworks':
                 return resume.coursework_set.all()
+            if step == 'projects':
+                return resume.project_set.all()
         else:
             if step == 'resumes':
                 return None
@@ -144,6 +148,8 @@ class ResumeBucket(LoginRequiredMixin, SessionWizardView):
                 return Language.objects.none()
             if step == 'courseworks':
                 return Coursework.objects.none()
+            if step == 'projects':
+                return Project.objects.none()
         return None
     
     def get_template_names(self):
