@@ -79,6 +79,16 @@ class ProfileUpdateFrom(forms.ModelForm):
             'id':"id_linkedin",
             'placeholder':"LinkedIn",
         })
+        # github
+        self.fields['github'].widget.attrs.update({
+            'type':"text",
+            'class':"form-control",
+            'name':"github",
+            'maxlength':'1024',
+            'required':'',
+            'id':"id_github",
+            'placeholder':"Github",
+        })
         # bio field
         self.fields['bio'].widget.attrs.update({
             'type':"text",
@@ -100,18 +110,20 @@ class ProfileUpdateFrom(forms.ModelForm):
     
     class Meta:
         model = Profile
-        fields = ['position', 'address', 'city', 'country', 'phonenumber', 'linkedin', 'bio', 'profile_picture']
+        fields = ['position', 'address', 'city', 'country', 'phonenumber', 'linkedin', 'github', 'bio', 'profile_picture']
         widgets = {
             'position': forms.TextInput(attrs={'placeholder':'Job Title/Role'}),
             'address': forms.TextInput(attrs={'placeholder':'Address'}),
             'city': forms.TextInput(attrs={'placeholder':'City'}),
             'country': forms.TextInput(attrs={'placeholder':'Country'}),
             'phonenumber': forms.TextInput(attrs={'placeholder':'Mobile Number'}),
-            'linkedin': forms.TextInput(attrs={'placeholder':'LinkedIn Profile'}),
+            'linkedin': forms.URLInput(attrs={'placeholder':'LinkedIn Profile'}),
+            'github': forms.URLInput(attrs={'placeholder':'GitHub Profile'}),
             'bio': forms.Textarea(attrs={'cols':5}),
         }
         labels = {
             "linkedin": "LinkedIn Profile",
+            "github": "GitHub Profile",
             "phonenumber": "Mobile Number",
             "profile_picture": "Profile Picture",
             "bio": "Bio",

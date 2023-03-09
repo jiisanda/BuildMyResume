@@ -52,8 +52,8 @@ def choose(request, pk):
     elif request.method == 'POST' and 'view-resume' in request.POST:
         if form.is_valid() and form.cleaned_data['resume_template'] == 'default':
             return render(request, 'home/default.html', {'form': form, 'resume':resume, 'profile_picture_url':profile_picture_url})
-    # elif form.is_valid() and request.method == 'POST' and 'export-resume' in request.POST:
-    #     pass
+    elif form.is_valid() and request.method == 'POST' and 'export-resume' in request.POST:
+        pass
     return render(request, 'home/choose.html', {'form':form, 'resume':resume})
 
 

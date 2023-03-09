@@ -26,7 +26,8 @@ class Profile(models.Model):
     address = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True)
     country = models.CharField(max_length=255, blank=True)
-    linkedin = models.CharField(max_length=255, )
+    linkedin = models.URLField(blank=True, null=True)
+    github = models.URLField(blank=True, null=True)
     bio = models.TextField(max_length=1024, blank=True, null=True)
     profile_picture = ResizedImageField(
         size=[300, 300],
