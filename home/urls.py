@@ -18,6 +18,6 @@ urlpatterns = [
     path('resume/create/', views.ResumeBucket.as_view(views.FORMS), name='create-resume'),
     path('edit/resume/<int:pk>/', views.ResumeBucket.as_view(views.FORMS), name='edit-resume'),
     path('templates/', views.templates, name='templates'),
-    path('resume/<int:pk>/choose/', views.choose, name='choose'),
+    path('resume/<int:pk>/choose-template/', views.choose, name='choose'),
     path('resume/<int:pk>/view-resume/', views.choose, name='views-resume'),
 ]

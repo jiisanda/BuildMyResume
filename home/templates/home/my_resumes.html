@@ -7,7 +7,7 @@
             <div class="card mb-3 resume-card card" style="width: 500px;">
                 <div class="container row g-0">
                     <div class="col-md-4">
-                        <img src="{% static 'media/resume.png' %}" class="img-fluid rounded-start" alt="...">
+                        <img src="{% static 'home/images/resume.png' %}" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -16,7 +16,7 @@
                             <div class="delete-edit-view">
                                 <a href="{% url 'home:delete-resume' pk=resume.id %}" class="delete-resume"><button>Delete</button></a>
                                 <a href="{% url 'home:edit-resume' pk=resume.id %}" class="edit-resume"><button>Update</button></a>
-                                <a href="" class="view-resume"><button>View</button></a>
+                                <a href="{% url 'home:choose' pk=resume.id %}" class="view-resume"><button>View</button></a>
                             </div>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
             </div>
         {% empty %}
             <div class="empty-resume-bucket">
-                <img src="{% static 'media/empty-folder.png' %}" class="centered">
+                <img src="{% static 'home/images/empty-folder.png' %}" class="centered">
                 <p class="empty-resume-bucket-text"><b>You don't have any resumes</b></p>
             </div>
         {% endfor %}

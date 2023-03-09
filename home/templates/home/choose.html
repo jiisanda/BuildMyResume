@@ -1,6 +1,48 @@
 {% extends "home/base_layout.html" %}
 {% load static %}
+{% block style %}
+<style>
+    input[type=radio] {
+        display: none;
+    }
 
+    input#id_resume_template_0[type=radio]+label {
+        background-image: url("{% static 'home/images/default-mini.jpg' %}");
+        border: #453C67 solid 1.5px;
+        height: 253px;
+        width: 223px;
+        display: inline-block;
+        margin: 1.5em;
+    }
+
+    input#id_resume_template_0[type=radio]:checked+label {
+        border: #E90064 solid 4px;
+        height: 253px;
+        width: 223px;
+        display: inline-block;
+        margin: 1.5em;
+    }
+</style>
+{% endblock style %}
+
+{% block title %}<title>BMR | Choose Template</title>{% endblock title %}
+
+{% block subheader %}
+<div class="sub-header">
+    <h1>Choose Your Resume Template</h1>
+</div>
+{% endblock subheader %}
 {% block content %}
-
+    <div class="template-page">
+        <form method="POST" action="{% url 'home:views-resume' pk=resume.id %}">
+            {% csrf_token %}
+            <input type="radio" name="resume_template" id="id_resume_template_0" value="default"><label for="id_resume_template_0"></label>
+            <div>
+                {{ form.errors.resume_template }}
+                <button type="submit" name="view-resume" class="button">View Resume</button>
+                <button type="submit" name="export-resume" class="button">Download PDF</button>
+            </div>
+        </form>
+    </div>
 {% endblock content %}
+<!-- <img src="{% static 'media/default-template.png' %}"> -->

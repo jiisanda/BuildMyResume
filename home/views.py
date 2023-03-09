@@ -44,7 +44,7 @@ TEMPLATES = {
 def choose(request, pk):
     user = request.user
     profile_picture_url = user.profile.profile_picture.url.strip('/')
-    resume = Resume.objects.get(pk=pk)
+    resume = ResumeMetaData.objects.get(pk=pk)
     form = ChooseForm(request.POST)
     
     if request.method == 'GET':
