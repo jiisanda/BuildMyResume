@@ -191,14 +191,15 @@ class EducationForm(forms.ModelForm):
     end_date = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS,
                                  widget=forms.DateInput(format='%d/%m/%Y', attrs={
                                     'class':'date-picker', 'placeholder':'DD/MM/YYYY',
-                                }))
+                                })) 
     
     class Meta:
         model = Education
-        fields = ['school', 'degree', 'major', 'grade', 'start_date', 'end_date', 'resume', ]
+        fields = ['school', 'degree', 'university', 'major', 'grade', 'start_date', 'end_date', 'resume', ]
         widgets = {
             'school': forms.TextInput(attrs={'placeholder':'School Name'}),
             'degree': forms.TextInput(attrs={'placeholder':'Degree'}),
+            'university': forms.TextInput(attrs={'placeholder':'University Name'}),
             'major': forms.TextInput(attrs={'placeholder':'Major'}),
             'grade': forms.NumberInput(attrs={'placeholder':'Grade'}),
             'resume': forms.HiddenInput(),

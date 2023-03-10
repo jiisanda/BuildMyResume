@@ -35,6 +35,7 @@ class Education(models.Model):
     resume = models.ForeignKey(ResumeMetaData, on_delete=models.CASCADE, blank=True)
     school = models.CharField(max_length=255, blank=True)
     degree = models.CharField(max_length=255, blank=True)
+    university = models.CharField(max_length=255, blank=True)
     major = models.CharField(max_length=255, blank=True)
     grade = models.FloatField(blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
