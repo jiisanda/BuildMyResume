@@ -11,24 +11,87 @@
         <link rel="stylesheet" href="">
     </head>
     <style>
-        .default {
-            font-family: 'Times New Roman', Times, serif;
-            text-align: justify;
-        }
-        .default  table { 
-            box-shadow: 0px 34px 37px -7px rgba(0, 0, 0, 0.4); 
-            margin: 80px auto; 
-            border-radius: 10px; 
-        }
+        .default { font-family: 'Times New Roman', Times, serif; text-align: justify; }
+        
+        .default  table { box-shadow: 0px 34px 37px -7px rgba(0, 0, 0, 0.4); margin: 80px auto; border-radius: 10px; }
 
-        .default table tr td { 
-            padding: 80px; 
-            max-width: 1170px;
-        }
+        .default table tr td { padding: 80px; max-width: 1170px; }
 
-        .metadata {
-            display: flex;
-        }
+        .metadata { display: flex; }
+
+        .default .hr-line { border: 2px solid #000000; margin-top: 0%; margin-bottom: 10px; }
+
+        .default li { list-style-type: none; }
+
+        .default .name h1, .position { margin-top: 0px; display: flex; justify-content: center; margin-bottom: 0px; }
+
+        .default .contact2, .contact3 { margin-top: 0px; margin-bottom: 0px; font-size: 17px; display: flex; justify-content: center; }
+
+        .default .education .title::first-letter { font-size: 25px; }
+
+        .default .education .title { padding-top: 1.5rem; font-size: 20px; margin-bottom: 0%; }
+
+        .default .timeline { margin-top: 0%; margin-bottom: 0%; }
+
+        .default .edu .school p { font-size: 18px; font-weight: 700; margin: 0px 0px 2px; }
+        
+        .default .edu .edu-metadata1 p { font-size: 15px; padding-left: 1rem; margin: 0px 0px 2px; }
+
+        .default .edu .edu-metadata2 { padding-left: 1rem; font-size: 15px; margin-bottom: 0px 0px 0px; }
+
+        .default .edu .edu-metadata2 .major span { padding-left: 1rem; }
+
+        .default .edu .edu-metadata2 .grade p { padding-left: 10rem; }
+
+        .default .experience .title::first-letter { font-size: 25px; }
+
+        .default .experience .title { padding-top: 0%; font-size: 20px; margin: 0px 0px 0px; }
+
+        .default .exp { padding: 0px 0px 0px; margin: 0px 0px 0px; }
+
+        .default .experience .exp .position p { font-size: 18px; font-weight: 700; margin: 0px 0px 0px; }
+
+        .default .experience .exp .company p { font-size: 17px; margin: 0px 0px 0px; }
+
+        .default .experience .exp .dates p { font-size: 17px; padding-left: 30rem; margin: 0px 0px 0px; }
+
+        .default .experience .description { padding-left: 10px; padding-top: 5px; }
+
+        .default .skill-coursework .title { padding-top: 0%; font-size: 20px; margin: 0px 0px 0px; }
+
+        .default .skill-coursework .title::first-letter { font-size: 25px; }
+
+        .default .skill-coursework .timeline li { list-style-type: disc; }
+
+        .default .skill-coursework .skill p { margin-bottom: 0%; }
+
+        .default .skill-coursework .cw p { margin-bottom: 0%; }
+
+        .default .projects .title { padding-top: 0%; font-size: 20px; margin: 0px 0px 0px; }
+
+        .default .projects .title::first-letter { font-size: 25px; }
+
+        .default .projects .proj .project-name p { font-size: 20px; margin-bottom: 5px; }
+
+        .default .projects .proj .stack p { font-size: 17px; margin-bottom: 0%; }
+
+        .default .projects .proj .project-link p { font-size: 17px; padding-left: 20rem; margin-bottom: 0%; }
+
+        .default .projects .proj .date p { font-size: 17px; padding-left: 13rem; margin-bottom: 0%; }
+
+        .default .projects .description { padding-left: 10px; padding-top: 1px; }
+
+        .default .certificate .title { padding-top: 0%; font-size: 20px; margin: 0px 0px 0px; }
+
+        .default .certificate .title::first-letter { font-size: 25px; }
+
+        .default .certificate .program-name p { font-size: 20px; font-weight: 700; }
+
+        .default .certificate .platform-name p { font-size: 17px; }
+
+        .default .certificate .date p { font-size: 17px; padding-left: 18rem; }
+
+        .default .certificate .link p { font-size: 17px; padding-left: 11rem; }
     </style>
     <body class="default">
         <main>
@@ -37,32 +100,33 @@
                     <tr>
                         <td>
                             <div class="name">
-                                <h1>{{ resume.user.first_name }} {{ resume.user.last_name }}</h1>
+                                <h1><b>{{ resume.user.first_name }} {{ resume.user.last_name }}</b></h1>
                                 <p class="position">{{ resume.user.profile.position }}</p>
                             </div>
                             <div class="contact">
-                                {{ resume.user.profile.phonenumber }} • {{ resume.user.email }} <br>
-                                {% if resume.user.profile.linkedin %}
-                                <a href="{{ resume.user.profile.linkedin }}" target="_blank" style="color: #808E9B;"><span>LinkedIn</span></a> •
-                                {% endif %}
-                                {% if resume.user.profile.github %}
-                                <a href="{{ resume.user.profile.github }}" target="_blank" style="color: #808E9B;"><span>GitHub</span></a>
-                                {% endif %}
+                                <div class="contact2">{{ resume.user.profile.phonenumber }} • {{ resume.user.email }}</div>
+                                <div class="contact3">
+                                    {% if resume.user.profile.linkedin %}
+                                        <a href="{{ resume.user.profile.linkedin }}" target="_blank" style="color: #808E9B;"><span>LinkedIn</span></a>&nbsp;•&nbsp;
+                                    {% endif %}
+                                    {% if resume.user.profile.github %}
+                                        <a href="{{ resume.user.profile.github }}" target="_blank" style="color: #808E9B;"><span>GitHub</span></a>
+                                    {% endif %}
+                                </div>
                             </div>
-                    
                             <div class="education">
-                                <h2 class="title">Education</h2>
-                                <hr>
+                                <p class="title"><b>EDUCATION</b></p>
+                                <hr class="hr-line">
                                 <div class="timeline">
                                     <ul>
                                         {% for education in resume.education_set.all %}
                                             <li>
                                                 <div class="edu">
                                                     <div class="school"><p>{{ education.school }}</p></div>
-                                                    <div class="edu-metadata"><p>{{ education.degree }} • {{ education.university }} • {{ education.start_date|date:'M Y' }} - {{ education.end_date|date:'M Y' }}</p></div>
-                                                    <div class="metadata">
-                                                        <div class="major">Major: {{ education.major }}</div>
-                                                        <div class="grade">Grade: {{ education.grade }}</div>
+                                                    <div class="edu-metadata1"><p>{{ education.degree }} • {{ education.university }} • <i>{{ education.start_date|date:'M Y' }} - {{ education.end_date|date:'M Y' }}</i></p></div>
+                                                    <div class="metadata edu-metadata2">
+                                                        <div class="major"><p>Major: <span>{{ education.major }}</span></p></div>
+                                                        <div class="grade"><p>Grade: <span>{{ education.grade }}</span></p></div>
                                                     </div>
                                                 </div>
                                             </li>
@@ -71,8 +135,8 @@
                                 </div>
                             </div>
                             <div class="experience">
-                                <h2 class="title">Experience</h2>
-                                <hr>
+                                <p class="title"><b>EXPERIENCE</b></p>
+                                <hr class="hr-line">
                                 <div class="timeline">
                                     <ul>
                                         {% for experience in resume.experience_set.all %}
@@ -80,17 +144,17 @@
                                                 <div class="exp metadata">
                                                     <div class="position"><p>{{ experience.position }}&nbsp;</p></div>
                                                     <div class="company"><p> at {{ experience.company }}, {{ experience.city }}&nbsp;</p></div>
-                                                    <div class="dates"><p>{{ experience.start_date|date:'M Y' }} - {{ experience.end_date|date:'M Y' }}</p></div>
+                                                    <div class="dates"><p><i>{{ experience.start_date|date:'M Y' }} - {{ experience.end_date|date:'M Y' }}</i></p></div>
                                                 </div>
-                                                <p>{{ experience.description }}</p>
+                                                <p class="description">{{ experience.description }}</p>
                                             </li>
                                         {% endfor %}
                                     </ul>
                                 </div>
                             </div>
                             <div class="skill-coursework">
-                                <h2 class="title">Skills & Cousework</h2>
-                                <hr>
+                                <p class="title"><b>SKILLS & COURSEWORK</b></p>
+                                <hr class="hr-line">
                                 <div class="timeline container">
                                     <ul>
                                         <div class="row">
@@ -117,33 +181,31 @@
                                 </div>
                             </div>
                             <div class="projects">
-                                <h2 class="title">Projects</h2>
-                                <hr>
+                                <p class="title"><b>PROJECTS</b></p>
+                                <hr class="hr-line">
                                 <div class="timeline">
                                     <ul>
                                         {% for project in resume.project_set.all %}
                                             <li>
-                                                <div class="timeline">
-                                                    <div class="metadata proj">
-                                                        <div clasa="project-name"><p>{{ project.project_name }}</p></div>
-                                                        <div class="stack">&nbsp;| {{ project.stack_name }}</div>
-                                                        <div class="project-ink">
-                                                            {% if project.project_link %}
-                                                                &nbsp;<a href="{{ project.project_link }}" target="_blank" style="color: #808E9B;"><span>Link</span></a>&nbsp;
-                                                            {% endif %}
-                                                        </div>
-                                                        <div class="date"><p>{{ project.start_date|date:'M Y' }} - {{ project.end_date|date:'M Y' }}</p></div>
+                                                <div class="metadata proj">
+                                                    <div class="project-name"><p><b>{{ project.project_name }}</b></p></div>
+                                                    <div class="stack"><p>&nbsp;| {{ project.stack_name }}</p></div>
+                                                    <div class="project-link">
+                                                        {% if project.project_link %}
+                                                            <p>&nbsp;[<a href="{{ project.project_link }}" target="_blank" style="color: #808E9B;"><span>Link</span></a>]&nbsp;</p>
+                                                        {% endif %}
                                                     </div>
-                                                    <p>{{ project.description }}</p>
+                                                    <div class="date"><p><i>{{ project.start_date|date:'M Y' }} - {{ project.end_date|date:'M Y' }}</i></p></div>
                                                 </div>
+                                                <p class="description">{{ project.description }}</p>
                                             </li>
                                         {% endfor %}
                                     </ul>
                                 </div>
                             </div>
                             <div class="certificate">
-                                <h2 class="title">Certificates</h2>
-                                <hr>
+                                <p class="title"><b>CERTIFICATES</b></p>
+                                <hr class="hr-line">
                                 <div class="timeline">
                                     <ul>
                                         {% for certi in resume.certificate_set.all %}
@@ -151,10 +213,10 @@
                                                 <div class="metadata">
                                                     <div class="program-name"><p>{{ certi.program_name }}&nbsp;</p></div>
                                                     <div class="platform-name"><p> | {{ certi.platform_name }}&nbsp;</p></div>
-                                                    <div class="date"><p>{{ certi.issued_date|date:'M Y' }} |&nbsp;</p></div>
+                                                    <div class="date"><p>{{ certi.issued_date|date:'M Y' }} &nbsp;</p></div>
                                                     <div class="link">
                                                         {% if certi.certificate_url %}
-                                                            <a href="{{ certi.certificate_url }}" target="_blank" style="color: #808E9B;"><span>Link</span></a>
+                                                            <p>[<a href="{{ certi.certificate_url }}" target="_blank" style="color: #808E9B;"><span>Link</span></a>]</p>
                                                         {% endif %}
                                                     </div>
                                                 </div>
