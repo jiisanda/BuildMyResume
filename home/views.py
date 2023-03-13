@@ -1,10 +1,13 @@
 import logging
 
+from xhtml2pdf import pisa
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
+from django.template.loader import get_template
 from django.urls import reverse
 
 from formtools.wizard.views import SessionWizardView
@@ -55,7 +58,22 @@ def choose(request, pk):
         if form.is_valid() and form.cleaned_data['resume_template'] == 'default':
             return render(request, 'home/default.html', {'form': form, 'resume':resume, 'profile_picture_url':profile_picture_url})
     elif form.is_valid() and request.method == 'POST' and 'export-resume' in request.POST:
-        pass
+        if form.cleaned_data['resume_template'] == 'default':
+            template_path = 'home/pdf_default.html'
+            context = {'form': form, 'resume':resume, 'profile_picture_url':profile_picture_url}
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'filename="my_resume.pdf"'
+            # find the template and render it.
+            template = get_template(template_path)
+            html = template.render(context)
+
+            # create a pdf
+            pisa_status = pisa.CreatePDF(
+            html, dest=response)
+            # if error then show some funny view
+            if pisa_status.err:
+                return HttpResponse('We had some errors <pre>' + html + '</pre>')
+            return response
     return render(request, 'home/choose.html', {'form':form, 'resume':resume})
 
 
