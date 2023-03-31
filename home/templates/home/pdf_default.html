@@ -1,226 +1,220 @@
-{% load static %}
 <!DOCTYPE html>
+
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>BMR - {{ resume.resume_name }}</title>
-        <meta name="description" content="">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <style>
-        .default { font-family: 'Times New Roman', Times, serif; text-align: justify; }
-        
-        .metadata { display: flex; }
 
-        .default .hr-line { border: 2px solid #000000; margin-top: 0%; margin-bottom: 10px; }
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BMR: {{ resume.resume_name }}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+<style>
+    table { font-family: 'Times New Roman', Times, serif; text-align: justify; }
 
-        .default li { list-style-type: none; }
+    tr { margin-top: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 0; }
 
-        .default .name h1, .position { margin-top: 0px; display: flex; justify-content: center; margin-bottom: 0px; }
+    .name { font-size: 30px; text-align: center; }
 
-        .default .contact2, .contact3 { margin-top: 0px; margin-bottom: 0px; font-size: 17px; display: flex; justify-content: center; }
+    .position { font-size: 14px; text-align: center; }
 
-        .default .education .title::first-letter { font-size: 25px; }
+    .contact { font-size: 17px; text-align: center; }
 
-        .default .education .title { padding-top: 1.5rem; font-size: 20px; margin-bottom: 0%; }
+    .social-links { font-size: 17px; text-align: center; border-bottom: #000000 solid; }
 
-        .default .timeline { margin-top: 0%; margin-bottom: 0%; }
+    .title { padding-top: 5px; font-size: 20px; font-weight: 500; text-align: left; padding-bottom: 0; }
 
-        .default .edu .school p { font-size: 18px; font-weight: 700; margin: 0px 0px 2px; }
-        
-        .default .edu .edu-metadata1 p { font-size: 15px; padding-left: 1rem; margin: 0px 0px 2px; }
+    .metadata2 { padding-bottom: 15px; }
 
-        .default .edu .edu-metadata2 { padding-left: 1rem; font-size: 15px; margin-bottom: 0px 0px 0px; }
+    .major { display: inline-block; font-size: 15px; }
 
-        .default .edu .edu-metadata2 .major span { padding-left: 1rem; }
+    .grade { display: inline-block; font-size: 15px; }
 
-        .default .edu .edu-metadata2 .grade p { padding-left: 10rem; }
+    .subtitle { display: inline-block; font-size: 19px; font-weight: bold; }
 
-        .default .experience .title::first-letter { font-size: 25px; }
+    .subtitle-metadata { display: inline-block; font-size: 17px; }
 
-        .default .experience .title { padding-top: 0%; font-size: 20px; margin: 0px 0px 0px; }
+    .dates { display: inline-block; font-size: 17px; }
 
-        .default .exp { padding: 0px 0px 0px; margin: 0px 0px 0px; }
+    .description { font-size: 14px; }
+</style>
 
-        .default .experience .exp .position p { font-size: 18px; font-weight: 700; margin: 0px 0px 0px; }
-
-        .default .experience .exp .company p { font-size: 17px; margin: 0px 0px 0px; }
-
-        .default .experience .exp .dates p { font-size: 17px; padding-left: 30rem; margin: 0px 0px 0px; }
-
-        .default .experience .description { padding-left: 10px; padding-top: 5px; }
-
-        .default .skill-coursework .title { padding-top: 0%; font-size: 20px; margin: 0px 0px 0px; }
-
-        .default .skill-coursework .title::first-letter { font-size: 25px; }
-
-        .default .skill-coursework .timeline li { list-style-type: disc; }
-
-        .default .skill-coursework .skill p { margin-bottom: 0%; }
-
-        .default .skill-coursework .cw p { margin-bottom: 0%; }
-
-        .default .projects .title { padding-top: 0%; font-size: 20px; margin: 0px 0px 0px; }
-
-        .default .projects .title::first-letter { font-size: 25px; }
-
-        .default .projects .proj .project-name p { font-size: 20px; margin-bottom: 5px; }
-
-        .default .projects .proj .stack p { font-size: 17px; margin-bottom: 0%; }
-
-        .default .projects .proj .project-link p { font-size: 17px; padding-left: 20rem; margin-bottom: 0%; }
-
-        .default .projects .proj .date p { font-size: 17px; padding-left: 13rem; margin-bottom: 0%; }
-
-        .default .projects .description { padding-left: 10px; padding-top: 1px; }
-
-        .default .certificate .title { padding-top: 0%; font-size: 20px; margin: 0px 0px 0px; }
-
-        .default .certificate .title::first-letter { font-size: 25px; }
-
-        .default .certificate .program-name p { font-size: 20px; font-weight: 700; }
-
-        .default .certificate .platform-name p { font-size: 17px; }
-
-        .default .certificate .date p { font-size: 17px; padding-left: 18rem; }
-
-        .default .certificate .link p { font-size: 17px; padding-left: 11rem; }
-    </style>
-    <body class="default">
-        <main>
-            <div class="section" style="page-break-after: auto;">
-                <div class="name">
-                    <h1><b>{{ resume.user.first_name }} {{ resume.user.last_name }}</b></h1>
-                    <p class="position">{{ resume.user.profile.position }}</p>
-                </div>
-                <div class="contact">
-                    <div class="contact2">{{ resume.user.profile.phonenumber }} • {{ resume.user.email }}</div>
-                    <div class="contact3">
-                        {% if resume.user.profile.linkedin %}
-                            <a href="{{ resume.user.profile.linkedin }}" target="_blank" style="color: #808E9B;"><span>LinkedIn</span></a>&nbsp;•&nbsp;
-                        {% endif %}
-                        {% if resume.user.profile.github %}
-                            <a href="{{ resume.user.profile.github }}" target="_blank" style="color: #808E9B;"><span>GitHub</span></a>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="education">
-                    <p class="title"><b>EDUCATION</b></p>
-                    <hr class="hr-line">
-                    <div class="timeline">
+<body>
+    <table>
+        <tr class="name">
+            <th>{{ resume.user.first_name }} {{ resume.user.last_name }}</th>
+        </tr>
+        <tr class="position">
+            <td>{{ resume.user.profile.position }}</td>
+        </tr>
+        <tr class="contact">
+            <td>{{ resume.user.profile.phonenumber }} • {{ resume.user.email }}</td>
+        </tr>
+        <tr class="social-links">
+            <td>
+                {% if resume.user.profile.linkedin %}
+                <a href="{{ resume.user.profile.linkedin }}" target="_blank"
+                    style="color: #808E9B;"><span>LinkedIn</span></a>&nbsp;•&nbsp;
+                {% endif %}
+                {% if resume.user.profile.github %}
+                <a href="{{ resume.user.profile.github }}" target="_blank"
+                    style="color: #808E9B;"><span>GitHub</span></a>
+                {% endif %}
+            </td>
+        </tr>
+        <tr class="title">
+            <td>EDUCATION</td>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    {% for education in resume.education_set.all %}
+                    <li>
+                        <div class="subtitle">{{ education.school }}</div>
+                        <div class="subtitle-metadata">{{ education.degree }} • {{ education.university }} •
+                            <i>{{ education.start_date|date:'M Y' }} - {{ education.end_date|date:'M Y' }}</i></div>
                         <ul>
-                            {% for education in resume.education_set.all %}
-                                <li>
-                                    <div class="edu">
-                                        <div class="school"><p>{{ education.school }}</p></div>
-                                        <div class="edu-metadata1"><p>{{ education.degree }} • {{ education.university }} • <i>{{ education.start_date|date:'M Y' }} - {{ education.end_date|date:'M Y' }}</i></p></div>
-                                        <div class="metadata edu-metadata2">
-                                            <div class="major"><p>Major: <span>{{ education.major }}</span></p></div>
-                                            <div class="grade"><p>Grade: <span>{{ education.grade }}</span></p></div>
-                                        </div>
-                                    </div>
-                                </li>
-                            {% endfor %}
+                            <table>
+                                <tr style="padding-bottom: 5px;">
+                                    <td>
+                                        <div class="major">Major: {{ education.major }}</div>
+                                    </td>
+                                    <td style="margin-left: 80px;">
+                                        <div class="grade">Grade: {{ education.grade }}</div>
+                                    </td>
+                                </tr>
+                            </table>
                         </ul>
-                    </div>
-                </div>
-                <div class="experience">
-                    <p class="title"><b>EXPERIENCE</b></p>
-                    <hr class="hr-line">
-                    <div class="timeline">
+                    </li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr class="title">
+            <td>SKILLS AND COURSEWORK</td>
+        </tr>
+        <tr>
+            <td>
+                <table style="font-size: 15px; margin-left: 20px;">
+                    <tr>
+                        <td>
+                            <ul>
+                                {% for skill in resume.skill_set.all %}
+                                <li>{{ skill.skill_name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                {% for cw in resume.coursework_set.all %}
+                                <li>{{ cw.coursework_name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="title">
+            <td>EXPERIENCE</td>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    {% for experience in resume.experience_set.all %}
+                    <li>
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="subtitle">{{ experience.position }}&nbsp;</div>
+                                    <div class="subtitle-metadata">at {{ experience.company }},
+                                        {{ experience.city }}&nbsp;</div>
+                                </td>
+                                <td style="margin-left: 120px;">
+                                    <div class="dates"><i>{{ experience.start_date|date:'M Y' }} -
+                                            {{ experience.end_date|date:'M Y' }}</i></div>
+                                </td>
+                            </tr>
+                        </table>
                         <ul>
-                            {% for experience in resume.experience_set.all %}
-                                <li>
-                                    <div class="exp metadata">
-                                        <div class="position"><p>{{ experience.position }}&nbsp;</p></div>
-                                        <div class="company"><p> at {{ experience.company }}, {{ experience.city }}&nbsp;</p></div>
-                                        <div class="dates"><p><i>{{ experience.start_date|date:'M Y' }} - {{ experience.end_date|date:'M Y' }}</i></p></div>
-                                    </div>
-                                    <p class="description">{{ experience.description }}</p>
-                                </li>
-                            {% endfor %}
+                            <p class="description">{{ experience.description }}</p>
                         </ul>
-                    </div>
-                </div>
-                <div class="skill-coursework">
-                    <p class="title"><b>SKILLS & COURSEWORK</b></p>
-                    <hr class="hr-line">
-                    <div class="timeline container">
+                    </li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% with count=0 %}
+        <tr class="title">
+            <td>PROJECTS</td>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    {% for project in resume.project_set.all %}
+                    <li>
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="subtitle">{{ project.project_name }}</div>
+                                    <div class="subtitle-metadata">| {{ project.stack_name }}</div>
+                                </td>
+                                <td style="font-size: 17px; margin-left: 100px;">
+                                    {% if project.project_link %}
+                                    [<a href="{{ project.project_link }}" target="_blank"
+                                        style="color: #808E9B;">Link</a>]</p>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="dates"><i>{{ project.start_date|date:'M Y' }} -
+                                            {{ project.end_date|date:'M Y' }}</i></div>
+                                </td>
+                            </tr>
+                        </table>
                         <ul>
-                            <div class="row">
-                                <div class="col">
-                                    {% for skill in resume.skill_set.all %}
-                                    <li>
-                                        <div class="skill">
-                                            <p>{{ skill.skill_name }}</p>
-                                        </div>
-                                    </li>
-                                    {% endfor %}
-                                </div>
-                                <div class="col">
-                                    {% for cw in resume.coursework_set.all %}
-                                    <li>
-                                        <div class="cw">
-                                            <p>{{ cw.coursework_name }}</p>
-                                        </div>
-                                    </li>
-                                    {% endfor %}
-                                </div>
-                            </div>
+                            <p class="description">{{ project.description }}</p>
                         </ul>
-                    </div>
-                </div>
-                <div class="projects">
-                    <p class="title"><b>PROJECTS</b></p>
-                    <hr class="hr-line">
-                    <div class="timeline">
-                        <ul>
-                            {% for project in resume.project_set.all %}
-                                <li>
-                                    <div class="metadata proj">
-                                        <div class="project-name"><p><b>{{ project.project_name }}</b></p></div>
-                                        <div class="stack"><p>&nbsp;| {{ project.stack_name }}</p></div>
-                                        <div class="project-link">
-                                            {% if project.project_link %}
-                                                <p>&nbsp;[<a href="{{ project.project_link }}" target="_blank" style="color: #808E9B;"><span>Link</span></a>]&nbsp;</p>
-                                            {% endif %}
-                                        </div>
-                                        <div class="date"><p><i>{{ project.start_date|date:'M Y' }} - {{ project.end_date|date:'M Y' }}</i></p></div>
-                                    </div>
-                                    <p class="description">{{ project.description }}</p>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-                <div class="certificate">
-                    <p class="title"><b>CERTIFICATES</b></p>
-                    <hr class="hr-line">
-                    <div class="timeline">
-                        <ul>
-                            {% for certi in resume.certificate_set.all %}
-                                <li>
-                                    <div class="metadata">
-                                        <div class="program-name"><p>{{ certi.program_name }}&nbsp;</p></div>
-                                        <div class="platform-name"><p> | {{ certi.platform_name }}&nbsp;</p></div>
-                                        <div class="date"><p>{{ certi.issued_date|date:'M Y' }} &nbsp;</p></div>
-                                        <div class="link">
-                                            {% if certi.certificate_url %}
-                                                <p>[<a href="{{ certi.certificate_url }}" target="_blank" style="color: #808E9B;"><span>Link</span></a>]</p>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <script src="" async defer></script>
-    </body>
+                    </li>
+                    {% with count=forloop.counter %}
+                    {% endwith %}
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% endwith %}
+        {% if count < 3 %}
+        <tr class="title">
+            <td>CERTIFICATES</td>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    {% for certi in resume.certificate_set.all %}
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="subtitle">{{ certi.program_name }}&nbsp;</div>
+                                <div class="subtitle-metadata"> | {{ certi.platform_name }}&nbsp;</div>
+                            </td>
+                            <td style="margin-left: 100px;">
+                                <div class="dates"><i>{{ certi.issued_date|date:'M Y' }} &nbsp;</i></div>
+                            </td>
+                            <td style="margin-left: 120px; font-size:17px;">
+                                {% if certi.certificate_url %}
+                                [<a href="{{ certi.certificate_url }}" target="_blank"
+                                    style="color: #808E9B;"><span>Link</span></a>]
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% endif %}
+    </table>
+    <script src="" async defer></script>
+</body>
+
 </html>
