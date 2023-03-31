@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Resume</title>
+        <style>
+            .simple { font-family: 'Times New Roman', Times, serif; text-align: justify; }
+            
+            .simple .page { box-shadow: 0px 34px 37px -7px rgba(0, 0, 0, 0.4); margin: 80px auto; border-radius: 10px; }
+            
+            .simple .page .page-row .page-data { padding: 80px; max-width: 1170px; }
+            
+            .simple body { font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; }
+            
+            .simple h1 { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+            
+            .simple h2 { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+            
+            .simple .section { margin-bottom: 10px; }
+            
+            .simple .section-title { font-size: 16px; font-weight: bold; margin-bottom: 10px; }
+            
+            .simple .item { margin-bottom: 5px; }
+            
+            .simple .item-title { font-weight: bold; display: inline-block; width: 100px; }
+            
+            .simple .item-text { display: inline-block; }
+            
+            .simple .item-metadata-1 { display: inline-block; width: 100px; }
+            
+            .simple .item-metadata-2 { display: inline-block; }
+        </style>
+    </head>
+    <body class="simple">
+        <main>
+            <div class="section" style="page-break-after: auto;">
+                <table class="page"
+                    style="width:1170px; font-size: 14px; line-height:20px; background: #FFFFFF; color: #191825;">
+                    <tr class="page-row">
+                        <td class="page-data">
+                            <h1>{{ resume.user.first_name }} {{ resume.user.last_name }}</h1>
+                            <p>{{ resume.user.profile.position }} |
+                                {% if resume.user.profile.linkedin %}
+                                <a href="{{ resume.user.profile.linkedin }}" target="_blank"
+                                    style="color: #808E9B;"><span>LinkedIn</span></a>&nbsp;|&nbsp;
+                                {% endif %}
+                                {% if resume.user.profile.github %}
+                                <a href="{{ resume.user.profile.github }}" target="_blank"
+                                    style="color: #808E9B;"><span>GitHub</span></a>
+                                {% endif %}
+                            </p>
+                            <p>{{ resume.user.profile.phonenumber }} | {{ resume.user.email }}</p>
+                            <hr>
+                            <div class="section">
+                                <h2>Summary</h2>
+                                <p>{{ resume.user.profile.bio }}</p>
+                            </div>
+                            <div class="section">
+                                <h2>Skills & Coursework</h2>
+                                <table>
+                                    <td>
+                                        <ul>
+                                            {% for skill in resume.skill_set.all %}
+                                            <li>
+                                                <div class="skill">
+                                                    <p>{{ skill.skill_name }}</p>
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% for cw in resume.coursework_set.all %}
+                                            <li>
+                                                <div class="cw">
+                                                    <p>{{ cw.coursework_name }}</p>
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </table>
+                            </div>
+                            <div class="section">
+                                <h2>Experience</h2>
+                                <div class="item">
+                                    <ul>
+                                        {% for experience in resume.experience_set.all %}
+                                        <div class="item-title">{{ experience.position }}</div>
+                                        <div class="item-text">{{ experience.company }} | {{ experience.city }} |
+                                            {{ experience.start_date|date:'M Y' }} -
+                                            {{ experience.end_date|date:'M Y' }}</div>
+                                        <ul>
+                                            <li>{{ experience.description }}</li>
+                                        </ul>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="section">
+                                <h2>Education</h2>
+                                <div class="item">
+                                    <ul>
+                                        {% for education in resume.education_set.all %}
+                                        <div class="item-title">{{ education.school }}</div>
+                                        <div class="item-text">{{ education.degree }} | {{ education.university }} |
+                                            {{ education.start_date|date:'M Y' }} - {{ education.end_date|date:'M Y' }}
+                                        </div>
+                                        <ul style="list-style-type: none;">
+                                            <li>
+                                                <div class="item-metadata-1">Major: {{ education.major }}</div>
+                                                <div class="item-metadata-2">Grade: {{ education.grade }}</div>
+                                            </li>
+                                        </ul>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+        </script>
+        <script src="" async defer></script>
+    </body>
+</html>
