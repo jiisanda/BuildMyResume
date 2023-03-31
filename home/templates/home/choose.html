@@ -15,7 +15,24 @@
         margin: 1.5em;
     }
 
+    input#id_resume_template_1[type=radio]+label {
+        background-image: url("{% static 'home/images/simple-mini.png' %}");
+        border: #453C67 solid 1.5px;
+        height: 253px;
+        width: 223px;
+        display: inline-block;
+        margin: 1.5em;
+    }
+
     input#id_resume_template_0[type=radio]:checked+label {
+        border: #E90064 solid 4px;
+        height: 253px;
+        width: 223px;
+        display: inline-block;
+        margin: 1.5em;
+    }
+
+    input#id_resume_template_1[type=radio]:checked+label {
         border: #E90064 solid 4px;
         height: 253px;
         width: 223px;
@@ -37,6 +54,7 @@
         <form method="POST" action="{% url 'home:views-resume' pk=resume.id %}">
             {% csrf_token %}
             <input type="radio" name="resume_template" id="id_resume_template_0" value="default"><label for="id_resume_template_0"></label>
+            <input type="radio" name="resume_template" id="id_resume_template_1" value="simple"><label for="id_resume_template_1"></label>
             <div>
                 {{ form.errors.resume_template }}
                 <button type="submit" name="view-resume" class="button">View Resume</button>
