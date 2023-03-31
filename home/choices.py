@@ -16,11 +16,12 @@ LANGUAGE_PROFICIENCY_CHOICES = (
 
 COURSEWORK_PROFICIENCY_CHOICES = (
     ('', '--------'), 
-    (1, 'Begineer Level Knowlegde'),
-    (2, 'Intermediate Level Knowlegde'),
-    (3, 'Advanced Level Knowlegde'),
+    (1, 'Begineer Level Knowledge'),
+    (2, 'Intermediate Level Knowledge'),
+    (3, 'Advanced Level Knowledge'),
 )
 
 RESUME_CHOICES = (
     ('default', 'Default'),
+    ('simple', 'Simple'),
 )
