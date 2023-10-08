@@ -7,7 +7,6 @@ URLs for app_name: home
 from django.urls import path
 
 from . import views
-from users import views as user_views
 
 app_name = 'home'
 

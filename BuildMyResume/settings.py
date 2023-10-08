@@ -146,7 +146,7 @@ AUTH_USER_MODEL = 'users.User'
 # LOGIN_REDIRECT_URL = 'login'
 LOGIN_URL = reverse_lazy('login')
 
-# Redirect after loggin
+# Redirect after logging
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_AUTHENTICATION_LOGIN_REDIRECT = True
 

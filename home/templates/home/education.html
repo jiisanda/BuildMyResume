@@ -41,7 +41,7 @@
                 {{ wizard.form.as_p }}
             </div>
         {% endif %}
-        <div class="resume-form">
+        <div class="resume-form-button">
             {% if wizard.steps.prev %}
                 <button name="wizard_goto_step" class="button-previous" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
             {% endif %}

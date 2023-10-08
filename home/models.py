@@ -11,11 +11,11 @@ class ResumeMetaData(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     
     def __str__(self):
-        return self.resume_name + " | " + self.user.username
+        return f"{self.resume_name} | {self.user.username}"
 
 
 class Experience(models.Model):
-    resume=models.ForeignKey(ResumeMetaData, on_delete=models.CASCADE, blank=True)
+    resume = models.ForeignKey(ResumeMetaData, on_delete=models.CASCADE, blank=True)
     position = models.CharField(max_length=255, blank=True)
     company = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True)

@@ -16,7 +16,7 @@ class CustomUserCreationForm(UserCreationForm):
         username = self.cleaned_data['username']
         # validation
         if len(username) < 6:
-            raise forms.ValidationError("Username is too short. Make sure your username is atleast of length 6")
+            raise forms.ValidationError("Username is too short. Make sure your username is at least of length 6")
         if User.objects.filter(username=username).exists():
             raise forms.ValidationError(f"{username} is not available... Choose another")
         return username
@@ -34,7 +34,7 @@ class CustomUserCreationForm(UserCreationForm):
         
         if password1 != password2:
             raise forms.ValidationError("Passwords do not match. Please try again...")
-        return super(UserCreationForm, self).clean(*args, **kwargs)
+        return super(UserCreationForm, self).clean()
     
     class Meta(UserCreationForm.Meta):
         model = User
@@ -46,28 +46,28 @@ class CustomUserChangeForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # first name fields
         self.fields['first_name'].widget.attrs.update({
-            'type':"text",
-            'class':"form-control",
-            'name':"first_name",
-            'maxlength':"30",
-            'required':'',
-            'id':"id_first_name",
-            'placeholder':"First Name*",
+            'type': "text",
+            'class': "form-control",
+            'name': "first_name",
+            'maxlength': "30",
+            'required': '',
+            'id': "id_first_name",
+            'placeholder': "First Name*",
         })
         self.fields['last_name'].widget.attrs.update({
-            'type':"text",
-            'class':"form-control",
-            'name':"last_name",
-            'maxlength':"30",
-            'required':'',
-            'id':"id_last_name",
-            'placeholder':"Last Name*",
+            'type': "text",
+            'class': "form-control",
+            'name': "last_name",
+            'maxlength': "30",
+            'required': '',
+            'id': "id_last_name",
+            'placeholder': "Last Name*",
         })
     
     class Meta:
         model = User
         fields = ('first_name', 'last_name', )
         widgets = {
-            'first_name': forms.TextInput(attrs={'placeholder':'First Name'}),
-            'last_name': forms.TextInput(attrs={'placeholder':'Last name'}),
+            'first_name': forms.TextInput(attrs={'placeholder': 'First Name'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'Last name'}),
         }

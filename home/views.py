@@ -51,16 +51,25 @@ def choose(request, pk):
     profile_picture_url = user.profile.profile_picture.url.strip('/')
     resume = ResumeMetaData.objects.get(pk=pk)
     form = ChooseForm(request.POST)
+    template_path = ''
     
     if request.method == 'GET':
         form = ChooseForm()
     
     elif request.method == 'POST' and 'view-resume' in request.POST:
         if form.is_valid() and form.cleaned_data['resume_template'] == 'default':
-            return render(request, 'home/default.html', {'form': form, 'resume':resume, 'profile_picture_url':profile_picture_url})
+            return render(request, 'home/default.html', {
+                'form': form,
+                'resume': resume,
+                'profile_picture_url': profile_picture_url
+            })
         
         elif form.is_valid() and form.cleaned_data['resume_template'] == 'simple':
-            return render(request, 'home/simple.html', {'form': form, 'resume':resume, 'profile_picture_url':profile_picture_url})
+            return render(request, 'home/simple.html', {
+                'form': form,
+                'resume': resume,
+                'profile_picture_url': profile_picture_url
+            })
     
     elif form.is_valid() and request.method == 'POST' and 'export-resume' in request.POST:
         
@@ -70,7 +79,7 @@ def choose(request, pk):
         elif form.cleaned_data['resume_template'] == 'simple':
             template_path = 'home/pdf_simple.html'
             
-        context = {'form': form, 'resume':resume, 'profile_picture_url':profile_picture_url}
+        context = {'form': form, 'resume': resume, 'profile_picture_url': profile_picture_url}
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename="my_resume.pdf"'
         
@@ -79,15 +88,14 @@ def choose(request, pk):
         html = template.render(context)
         
         # create a pdf
-        pisa_status = pisa.CreatePDF(
-        html, dest=response)
+        pisa_status = pisa.CreatePDF(html, dest=response)
         
         # if error then show some view
         if pisa_status.err:
             return HttpResponse(f'We had some errors <pre>{html}</pre>')
         return response
     
-    return render(request, 'home/choose.html', {'form':form, 'resume':resume})
+    return render(request, 'home/choose.html', {'form': form, 'resume': resume})
 
 
 @login_required()
@@ -98,10 +106,12 @@ def my_resume(request):
     
     return render(request, 'home/my_resumes.html', {'resumes': resumes})
 
+
 @login_required()
 def templates(request):
     
     return render(request, 'home/templates.html')
+
 
 @login_required()
 def edit_profile(request):
@@ -122,8 +132,8 @@ def edit_profile(request):
         profile_form = ProfileUpdateFrom(instance=request.user.profile)
     
     context = {
-        'user_form':user_form,
-        'profile_form':profile_form,
+        'user_form': user_form,
+        'profile_form': profile_form,
     }
     
     return render(request, 'home/profile-edit.html', context)
@@ -137,6 +147,7 @@ def delete_my_resume(request, pk):
     messages.success(request, "Resume is successfully deleted!")
     
     return HttpResponseRedirect(reverse('home:my-resume'))
+
 
 def dict_has_data(input_dict):
     
@@ -214,8 +225,9 @@ class ResumeBucket(LoginRequiredMixin, SessionWizardView):
         
         pk = self.kwargs['pk'] if 'pk' in self.kwargs else None
         
-        resume, created = ResumeMetaData.objects.update_or_create(id=pk, defaults={'user':user, 
-                                                                                'resume_name':resume_name, })
+        resume, created = ResumeMetaData.objects.update_or_create(id=pk, defaults={
+            'user': user, 'resume_name': resume_name
+        })
         
         for form_name in FORM_TYPES:
             form_data_list = self.get_cleaned_data_for_step(form_name)

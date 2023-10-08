@@ -27,12 +27,12 @@
         {% csrf_token %}
         <p class="step-para">Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
         <div class="form-header">
-            <h1>Resume MetaData</h1>
+            <h1>Resume Name</h1>
         </div>
         {{ wizard.management_form }}
         {% if wizard.form.forms %}
             {{ wizard.form.management_form }}
-            {% for from in wizard.form.forms %}
+            {% for form in wizard.form.forms %}
                 <div class="resume-form">
                     {{ form.as_p }}
                 </div>
@@ -42,7 +42,7 @@
                     {{ wizard.form.as_p }}
                 </div>
         {% endif %}
-        <div class="resume-form">
+        <div class="resume-form-button">
             {% if wizard.steps.prev %}
                 <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
                 <button name="wizard_goto_step" type="submit" value="{{ wizard.step1 }}">{% trans "Step 1" %}</button>

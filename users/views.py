@@ -64,7 +64,8 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        messages.success(request, "You're now an active subscriber of BuildMyResume! Please login with your valid credentials.")
+        messages.success(request, "You're now an active subscriber of BuildMyResume! Please login with your valid "
+                                  "credentials.")
         return redirect('login')
     else:
         return HttpResponse('Invalid Link!!!')

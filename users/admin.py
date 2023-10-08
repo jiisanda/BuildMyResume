@@ -16,7 +16,7 @@ class UserAdmin(BaseUserAdmin):
     form = CustomUserChangeForm
     model = User
     
-    list_display = ['email', 'username', 'first_name', 'last_name', 'is_active',]
+    list_display = ['email', 'username', 'first_name', 'last_name', 'is_active', ]
     search_fields = ('email', 'username',)
     ordering = ('email',)
     filter_horizontal = ('groups', 'user_permissions',)
@@ -32,6 +32,7 @@ class ProfileAdmin(admin.ModelAdmin):
         'linkedin',
         'profile_picture',
     )
+
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Profile, ProfileAdmin)

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
 body {
     background: rgb(255,255,255);
     /* background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,172,255,1) 67%, rgba(0,60,168,1) 100%); */
@@ -187,4 +189,123 @@ body {
 
 .add-row {
     color: #3F497F;
+}
+
+/* Resume Forms */
+
+.sub-header ul {
+    list-style: none;
+    border-bottom: 1px solid #EAEAEA;
+    background-color: #FFF;
+    padding: 20px;
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 75px;
+}
+
+.sub-header ul li {
+    text-decoration: none;
+    color: #FFF;
+    text-align: left;
+    background-color: #BCB8C2;
+    padding: 10px 16px;
+    border-radius: 2px;
+    opacity: 0.8;
+    font-size: 16px;
+    display: inline-block;
+    margin: 4px;
+    line-height: 1;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.sub-header ul li .active {
+    background-color: #F05283;
+    pointer-events: none;
+}
+
+.sub-header ul li:hover {
+    opacity: 1;
+}
+
+.sub-header ul li {
+    display: inline-block;
+}
+
+.sub-header button {
+    font: 14px/1.5 'Raleway', sans-serif;
+    background-color: darkgray;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px;
+}
+
+.sub-header button:hover {
+    background-color: gray;
+}
+
+.sub-header button.active {
+    background-color: #CE4670;
+}
+
+.form-header h1 {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.sub-header p {
+    margin-left: 18%;
+    margin-right: 18%;
+    margin-bottom: 25px;
+}
+
+.major-content {
+    margin-bottom: 200px;
+    text-align: center;
+}
+
+/* Buttons */
+
+button {
+    border: 0;
+}
+
+.resume-form-button {
+    margin-top: 20px;
+}
+
+.next-button, button {
+    text-decoration: none;
+    font: bold 14px/1 'Raleway-Medium', sans-serif;
+    color: white;
+    background-color: green;
+    padding: 10px 25px;
+    opacity: 0.8;
+    font-size: 16px;
+    display: inline-block;
+    margin: 4px;
+    outline: none;
+    transition: 0.2s ease;
+    border: white solid 0px;
+}
+
+.next-button:hover {
+    background-color: darkgreen;
+}
+
+.form-labels .button-previous {
+    background-color: #e0e0e0;
+    color: #3d3d3d;
+    border: 1px solid #dbdbdb;
+    border-radius: 2px;
+    padding: 14px 22px;
+}
+
+.form-labels .button-previous:hover {
+    background-color: #cccccc;
 }

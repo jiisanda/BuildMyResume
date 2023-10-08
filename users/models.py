@@ -12,8 +12,8 @@ from django_resized import ResizedImageField
 
 
 class User(AbstractUser):
-    created_at = models.DateTimeField(auto_now_add = True, editable=False)
-    updated_at = models.DateTimeField(auto_now = True)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return self.email
@@ -21,7 +21,7 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    position = models.CharField(max_length=255, blank = True)
+    position = models.CharField(max_length=255, blank=True)
     phonenumber = models.CharField(max_length=255, blank=True)
     address = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True)
